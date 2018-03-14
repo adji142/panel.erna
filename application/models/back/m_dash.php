@@ -10,7 +10,7 @@ class m_dash extends CI_Model
 		parent::__construct();
 	}
 	function sidebar_mn($level){
-		return $this->db->query("select * from app_menu where active = 1 and level ='$level'");
+		return $this->db->query("select * from app_menu where level ='$level' or level2='$level'");
 	}
 	function user_info($id_reg){
 		return $this->db->query("select user.condition,registration.user,registration.datetime_reg,app_profile.photo,app_profile.bidangusaha,app_profile.photo,app_profile.store_desc from user,registration,app_profile where user.id_reg=app_profile.id_reg and app_profile.id_reg=registration.id_reg and registration.id_reg=$id_reg group by registration.user");

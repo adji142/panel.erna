@@ -157,19 +157,19 @@ use Facebook\FacebookCurl;
 		}
 		// echo $first."<br>".$second."<br>".$third."<br>".$fourth."<br>".$fived;
 		if($first==""){
-			$first="0";
+			$first="blank.jpg";
 		}
 		if ($second=="") {
-			$second="0";
+			$second="blank.jpg";
 		}
 		if ($third=="") {
-			$third="0";
+			$third="blank.jpg";
 		}
 		if ($fourth=="") {
-			$fourth="0";
+			$fourth="blank.jpg";
 		}
 		if ($fived=="") {
-			$fived="0";
+			$fived="blank.jpg";
 		}
 		//go for input
 		$input = array(
@@ -196,6 +196,21 @@ use Facebook\FacebookCurl;
                 Your promo has been posted !!
               </div>
 			');
+		if($first==""){
+			$first="img_post/blank.jpg";
+		}
+		if ($second=="") {
+			$second="img_post/blank.jpg";
+		}
+		if ($third=="") {
+			$third="img_post/blank.jpg";
+		}
+		if ($fourth=="") {
+			$fourth="img_post/blank.jpg";
+		}
+		if ($fived=="") {
+			$fived="img_post/blank.jpg";
+		}
 		if($check_fb != '1'){
 			redirect('back/dashboard/post');
 		}

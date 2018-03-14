@@ -6,7 +6,7 @@
 						foreach ($get_cat as $cat) {
 							$storetype = $cat->parent;
 							echo '
-								<div class="col-md-2 focus-grid">
+								<div class="col-md-3 focus-grid">
 									<a href="'.base_url('front/post/fill/'.$storetype.'').'">
 										<div class="focus-border">
 										<div class="focus-layout">

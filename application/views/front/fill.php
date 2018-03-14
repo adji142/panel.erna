@@ -1,3 +1,29 @@
+
+<script type="text/javascript">
+$(document).ready(function () {    
+var elem=$('#container ul');      
+	$('#viewcontrols a').on('click',function(e) {
+		if ($(this).hasClass('gridview')) {
+			elem.fadeOut(1000, function () {
+				$('#container ul').removeClass('list').addClass('grid');
+				$('#viewcontrols').removeClass('view-controls-list').addClass('view-controls-grid');
+				$('#viewcontrols .gridview').addClass('active');
+				$('#viewcontrols .listview').removeClass('active');
+				elem.fadeIn(1000);
+			});						
+		}
+		else if($(this).hasClass('listview')) {
+			elem.fadeOut(1000, function () {
+				$('#container ul').removeClass('grid').addClass('list');
+				$('#viewcontrols').removeClass('view-controls-grid').addClass('view-controls-list');
+				$('#viewcontrols .gridview').removeClass('active');
+				$('#viewcontrols .listview').addClass('active');
+				elem.fadeIn(1000);
+			});									
+		}
+	});
+});
+</script>
 <?php
   require_once(APPPATH."views/front/part/header_front.php");
 ?>
@@ -5,8 +31,7 @@
 	<div class="container">
 		<?php require_once(APPPATH."views/front/part/filter.php");?>
 		<div class="ads-grid">
-			<?php require_once(APPPATH."views/front/part/sidebar.php");?>
-			<div class="ads-display col-md-9">
+			<div class="ads-display col-md-12">
 					<div class="wrapper">					
 					<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 					  <!-- <ul id="myTab" class="nav nav-tabs nav-tabs-responsive" role="tablist">
@@ -36,39 +61,6 @@
 									   </div>
 									 </div>
 								<div class="clearfix"></div>
-								<!-- <?php
-									if($total_rows==0){
-										echo "Tidak ada post untuk saat ini";
-									}
-									else{
-										// if(is_array($post)){
-										// print_r($have_post);
-										foreach ($have_post as $content) {
-											
-											echo '
-												<ul class="list">
-													<a href="#">
-													<li>
-													<img src="'.base_url().'/'.$content->pic1.'" title="" alt="" />
-													<section class="list-left">
-													<h5 class="title">'.$content->promo_title.'</h5>
-													<span class="cityname">'.$content->start_period.' s/d '.$content->end_period.'</span>
-													<p class="catpath">'.$content->bidangusaha.'</p>
-													</section>
-													<section class="list-right">
-													<span class="date">'.substr($content->post_date,0,10).'</span>
-													
-													</section>
-													<div class="clearfix"></div>
-													</li> 
-												</a>
-												</ul>
-											';
-										}
-										// }
-									}
-
-								?> -->
 								<table id="example1" class="">
 									<thead>
 										<tr>
@@ -84,9 +76,13 @@
 												echo '<tr><td>
 												<br>
 												<ul class="list">
-													<a href="#">
+												<a href="'.base_url("front/post/single/$content->id_post").'">
 													<li>
 													<img src="'.base_url().'/'.$content->pic1.'" title="" alt="" />
+													<img src="'.base_url().'/'.$content->pic2.'" title="" alt="" />
+													<img src="'.base_url().'/'.$content->pic3.'" title="" alt="" />
+													<img src="'.base_url().'/'.$content->pic4.'" title="" alt="" />
+													<img src="'.base_url().'/'.$content->pic5.'" title="" alt="" />
 													<section class="list-left">
 													<h5 class="title">'.$content->promo_title.'</h5>
 													<span class="cityname">'.$content->start_period.' s/d '.$content->end_period.'</span>
@@ -94,7 +90,6 @@
 													</section>
 													<section class="list-right">
 													<span class="date">'.substr($content->post_date,0,10).'</span>
-													
 													</section>
 													<div class="clearfix"></div>
 													</li> 
