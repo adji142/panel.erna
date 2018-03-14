@@ -23,8 +23,8 @@ class m_post extends CI_Model
 		$this->db->select("app_post.*,app_profile.bidangusaha,app_profile.address");
 		$this->db->from("app_post");
 		$this->db->join("app_profile","app_profile.id_reg=app_post.id_reg","inner");
-		$this->db->where("app_profile.bidangusaha",$type);
-		$this->db->where("app_post.status","running");
+		$this->db->like("app_profile.bidangusaha",$type);
+		$this->db->like("app_post.status","running");
 		return $this->db->get()->result();
 		
 	}
@@ -36,7 +36,6 @@ class m_post extends CI_Model
 		$this->db->like("app_profile.address",$loc);
 		$this->db->like("app_profile.bidangusaha",$cat);
 		$this->db->like("app_post.description",$desc);
-		$this->db->limit($limit,$start);
 		return $this->db->get()->result();
 	}
 	function get_count_with_fill($loc,$cat,$desc){
@@ -55,6 +54,39 @@ class m_post extends CI_Model
 	}
 	function get_filter_cat(){
 		return $this->db->get('storetype');
+	}
+	function get_detail($id){
+		$this->db->select("app_post.*,app_profile.*,_ViewCount.view");
+		$this->db->from("app_post");
+		$this->db->join("app_profile","app_profile.id_reg=app_post.id_reg","inner");
+		$this->db->join("_ViewCount","app_post.id_post=_ViewCount.id_post","inner");
+		// $this->db->join("")
+		$this->db->where("app_post.id_post","$id");
+		return $this->db->get()->result();
+	}
+	function set_view($inser,$table)
+	{
+		$this->db->set('id', 'UUID()', FALSE);
+		return $this->db->insert($table,$inser);
+	}
+	function get_ratting($id,$mac){
+		$this->db->select("*");
+		$this->db->where("id_post",$id);
+		$this->db->where("user_ID",$mac);
+		return $this->db->get("ratting");
+	}
+	function get_avg_rat($id){
+		$this->db->select("avg(ratting) as avg");
+		$this->db->where("id_post",$id);
+		return $this->db->get("ratting");
+	}
+	function create_ratting($insert,$table){
+		$this->db->set('id','UUID()',FALSE);
+		return $this->db->insert($table,$insert);
+	}
+	function update_rate($update,$where,$table){
+		$this->db->where($where);
+		return $this->db->update($table,$update);
 	}
 }
 ?>

@@ -1,6 +1,6 @@
 <div class="select-box">
 	<center><label><h3>Pencarian detail</h3></label></center><br>
-	<form method="post" action="<?php echo base_url('front/post/fill')?>">
+	<form method="post" action="<?php echo base_url('front/post/filter_by')?>">
 			<div class="search-product ads-list">
 
 					<label>Pilih lokasi</label>
@@ -39,7 +39,7 @@
 					</select>
 				</div>
 				<div class="search-product ads-list">
-					<label>Cari deskripsi iklan</label>
+					<label>Cari</label>
 					<div class="search">
 						<div id="custom-search-input">
 						<div class="input-group">
@@ -56,7 +56,7 @@
 				<div class="clearfix"></div>
 				</form>
 			</div>
-			<div class="all-categories">
+			<!-- <div class="all-categories">
 				<h3> Pilih tag populer untuk mencari promo yang sempurna !</h3>
 				<ul class="all-cat-list">
 					<?php 
@@ -67,7 +67,7 @@
 					?>
 					
 				</ul>
-			</div>
+			</div> -->
 			<ol class="breadcrumb" style="margin-bottom: 5px;">
 			  <li><a href="index.html">Home</a></li>
 			  <li class="active">All Ads</li>

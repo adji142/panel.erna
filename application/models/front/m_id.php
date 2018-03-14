@@ -12,7 +12,7 @@ class m_id extends CI_Model
 	function get_cat(){
 		$this->db->where_not_in('storetype','None');
 		$this->db->where_not_in('storetype','Minimarket');
-		$this->db->limit(6);
+		$this->db->limit(4);
 		return $this->db->get('storetype');
 	}
 	function get_username_for_welcome($id_reg){
@@ -34,6 +34,10 @@ class m_id extends CI_Model
 	function max_page(){
 		//$this->db->where('status','running');
 		return $this->db->get('app_post')->num_rows();
+	}
+	function user_agent($uservisit,$table){
+		$this->db->set('id','UUID()',FALSE);
+		return $this->db->insert($table,$uservisit);
 	}
 }
 ?>

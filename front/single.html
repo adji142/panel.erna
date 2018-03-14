@@ -71,6 +71,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			} );
 		</script>
 		<link rel="stylesheet" href="css/flexslider.css" media="screen" />
+		  <!-- <script src="js/jquery.flexslider.js"></script> -->
+		<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+					<script>
+					// Can also be used with $(document).ready()
+					$(window).load(function() {
+					  $(".flexslider").flexslider({
+						animation: "slide",
+						controlNav: "thumbnails"
+					  });
+					});
+					</script>
 </head>
 <body>
 <div class="header">
@@ -504,30 +515,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<p> <i class="glyphicon glyphicon-map-marker"></i><a href="#">state</a>, <a href="#">city</a>| Added at 06:55 pm, Ad ID: 987654321</p>
 					<div class="flexslider">
 						<ul class="slides">
-							<li data-thumb="images/ss1.jpg">
-								<img src="images/ss1.jpg" />
+							<li data-thumb="images/Lighthouse.jpg">
+								<img src="images/Lighthouse.jpg" />
 							</li>
-							<li data-thumb="images/ss2.jpg">
-								<img src="images/ss2.jpg" />
+							<li data-thumb="images/Lighthouse.jpg">
+								<img src="images/Lighthouse.jpg" />
 							</li>
-							<li data-thumb="images/ss3.jpg">
-								<img src="images/ss3.jpg" />
+							<li data-thumb="images/Lighthouse.jpg">
+								<img src="images/Lighthouse.jpg" />
 							</li>
 						</ul>
 					</div>
 					<!-- FlexSlider -->
-					  <script defer src="js/jquery.flexslider.js"></script>
-					<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
+					
 
-						<script>
-					// Can also be used with $(document).ready()
-					$(window).load(function() {
-					  $('.flexslider').flexslider({
-						animation: "slide",
-						controlNav: "thumbnails"
-					  });
-					});
-					</script>
+					
 					<!-- //FlexSlider -->
 					<div class="product-details">
 						<h4>Brand : <a href="#">Company name</a></h4>
@@ -574,6 +576,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</ol>
 						</div>
 				</div>
+
 			<div class="clearfix"></div>
 			</div>
 		</div>

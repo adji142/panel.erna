@@ -15,7 +15,38 @@ class id extends CI_Controller
           $this->load->library('Ajax_pagination');
 	}
 	function index(){
-		$this->load->database();
+    $this->load->database();
+    // add user activity
+    ob_start();
+    system("ipconfig /all");
+    $mycomp = ob_get_contents();
+    ob_clean();
+
+    $mac_addr = "Physical";
+    $host_name = "Host Name";
+    $pmac_addr = strpos($mycomp, $mac_addr);
+    $p_mac_host = strpos($mycomp, $host_name);
+    $mac = substr($mycomp,($pmac_addr+36),17);
+    $host = substr($mycomp,($p_mac_host+36),17);
+    
+    if ($this->agent->is_browser()){
+    $agent = $this->agent->browser().' '.$this->agent->version();
+    }elseif ($this->agent->is_mobile()){
+    $agent = $this->agent->mobile();
+    }else{
+    $agent = 'Data user gagal di dapatkan';
+    }
+    $uservisit = array(
+      "ip"=>$this->input->ip_address(),
+      "mac"=>$mac,
+      "browser"=>$this->agent->platform(),
+      "Host_Name"=>$host,
+      "browser"=>$agent,
+      "lastupdatetime"=>date("Y-m-d H:i:s")
+    );
+    $this->m_id->user_agent($uservisit,"uservisit");
+    // end user act
+		
     	$count = $this->db->get('app_post')->num_rows();
     	if(!empty($this->input->get("page"))){
     	$start = ceil($this->input->get("page") * $this->perPage);

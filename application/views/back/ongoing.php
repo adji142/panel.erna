@@ -93,8 +93,8 @@
       <button type="button" class="btn btn-normal" value="<?php echo $this->session->userdata('id_reg');?>" id="old">Oldest</button>
       <button type="button" class="btn btn-normal" value="<?php echo $this->session->userdata('id_reg');?>" id="exp">Expired</button>
       <button type="button" class="btn btn-normal" value="<?php echo $this->session->userdata('id_reg');?>" id="run">Running</button>
-      <!-- <button type="button" class="btn btn-normal" value="most_like" id="most_like">Most liked</button> -->
-      <!-- <button type="button" class="btn btn-normal" value="6765" id="best_rating">Best Ratting</button> -->
+      <button type="button" class="btn btn-normal" value="most_like" id="most_like">Most liked</button>
+      <button type="button" class="btn btn-normal" value="6765" id="best_rating">Best Ratting</button>
 
       <script type="text/javascript">
         var btn = $('#new').val();

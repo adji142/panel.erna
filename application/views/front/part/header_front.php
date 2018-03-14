@@ -31,6 +31,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link rel="stylesheet" href="<?php echo base_url();?>front/css/flexslider.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php echo base_url();?>front/css/font-awesome.min.css" />
 <link rel="stylesheet" href="<?php echo base_url();?>front/jquery/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="<?php echo base_url();?>front/css/star-rating.css" media="all"  type="text/css"/>
 <!-- for-mobile-apps -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -48,6 +49,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<?php echo base_url();?>front/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url();?>front/js/bootstrap-select.js"></script>
+<script src="<?php echo base_url();?>front/js/star-rating.js" type="text/javascript"></script>
 <script>
   $(document).ready(function () {
     var mySelect = $('#first-disabled2');
@@ -79,7 +81,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="<?php echo base_url();?>front/js/jquery.uls.languagefilter.js"></script>
 <script src="<?php echo base_url();?>front/js/jquery.uls.regionfilter.js"></script>
 <script src="<?php echo base_url();?>front/js/jquery.uls.core.js"></script>
-<script src="<?php echo base_url();?>front/jquery/dist/jquery.min.js"></script>
+<!-- <script src="<?php echo base_url();?>front/jquery/dist/jquery.min.js"></script> -->
 <script src="<?php echo base_url();?>front/jquery/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>front/jquery/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>front/jquery/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
@@ -107,8 +109,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				} );
 			} );
 		</script> -->
-    <script src="<?php echo base_url();?>front/js/tabs.js"></script>
-	
+		 
 <script type="text/javascript">
 $(document).ready(function () {    
 var elem=$('#container ul');      
