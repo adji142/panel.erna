@@ -110,9 +110,22 @@
 						<h4>Views : <strong>150</strong></h4>
 						
 						<p><strong>Summary</strong> : '.$key->description.'.</p>
+<<<<<<< HEAD
 						
 
 
+=======
+						<p>Ratting
+						<span dir="ltr" class="inline">
+							<input id="input-'.$key->id_post.'" name="rating-'.$mac.'" 
+							value="'.$ratt.'" data-disabled="'.$data.'"
+							class="rating "
+               				min="0" max="5" step="1" data-size="xs"
+               				accept="" data-symbol="&#xf005;" data-glyphicon="false"
+               				data-rating-class="rating-fa">
+						</span>
+						</p>
+>>>>>>> 8177e44539a6082b798423c3ea8bfc1b3412638f
 						<p>Share</p>
 						<hr width ="70%" size ="10px">
 						<p>Review</p>
@@ -127,6 +140,7 @@
 				<div class="col-md-5 product-details-grid">
 					<div class="item-price">
 						<div class="product-price">
+<<<<<<< HEAD
 						<div class="itemtype">
 							<p class="p-price">Item Category</p>
 							<h4>'.$key->bidangusaha.'</h4>
@@ -136,15 +150,33 @@
 							<a href="#">
 							<h4 class="rate">
 								'.$key->phone.'
+=======
+							<p class="p-price">Ratting Promo ini</p>
+							<a href="#">
+							<h4 class="rate">
+									<input class="rating" min="0" max="5" data-size="xs" data-disabled="true" value="'.$avg.'" /></a>
+>>>>>>> 8177e44539a6082b798423c3ea8bfc1b3412638f
 							</h3>
 							<div class="clearfix"></div>
 						</div>
 						<div class="condition">
+<<<<<<< HEAD
 							<p class="p-price"><i class="glyphicon glyphicon-earphone"></i></p>
 							<h4>'.$key->view.'</h4>
 							<div class="clearfix"></div>
 						</div>
 						
+=======
+							<p class="p-price">Dikunjungi</p>
+							<h4>'.$key->view.'</h4>
+							<div class="clearfix"></div>
+						</div>
+						<div class="itemtype">
+							<p class="p-price">Item Category</p>
+							<h4>'.$key->bidangusaha.'</h4>
+							<div class="clearfix"></div>
+						</div>
+>>>>>>> 8177e44539a6082b798423c3ea8bfc1b3412638f
 					</div>
 					<div class="interested text-center">
 						<h4>Interested in this Ad?<small> Contact the Seller!</small></h4>
@@ -160,6 +192,7 @@
 			</div>
 		</div>
 		<!-- FlexSlider -->
+<<<<<<< HEAD
 <?php require_once(APPPATH."views/front/part/footer.php");?>
 
 <!-- 
@@ -174,3 +207,6 @@
 						</span>
 						</p>
  -->
+=======
+<?php require_once(APPPATH."views/front/part/footer.php");?>
+>>>>>>> 8177e44539a6082b798423c3ea8bfc1b3412638f
