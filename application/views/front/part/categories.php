@@ -20,16 +20,16 @@
 						}
 					?>
 
-					<div class="col-md-12 focus-grid">
+					<!-- <div class="col-md-12 focus-grid">
 						<a href="<?php echo base_url('front/post/fill/non')?>">
 							<div class="focus-border">
-								<div class="focus-layout">
+								<div class="focus-layout"> -->
 									<!-- <div class="focus-image"><i class="fa fa-home"></i></div> -->
-									<h4 class="clrchg">All Categories</h4>
+					<!-- 				<h4 class="clrchg">All Categories</h4>
 								</div>
 							</div>
 						</a>
-					</div>
+					</div> -->
 					<div class="clearfix"></div>
 				</div>
 			</div>

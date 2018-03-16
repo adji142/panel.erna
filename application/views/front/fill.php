@@ -24,7 +24,7 @@ var elem=$('#container ul');
 	});
 });
 </script>
-<<<<<<< HEAD
+
 
 <style type="text/css">
 .object-fit_fill {
@@ -85,8 +85,8 @@ img[class] {
   margin-right: 0;
 }
 </style>
-=======
->>>>>>> 8177e44539a6082b798423c3ea8bfc1b3412638f
+
+
 <?php
   require_once(APPPATH."views/front/part/header_front.php");
 ?>
@@ -141,19 +141,12 @@ img[class] {
 												<ul class="list">
 												<a href="'.base_url("front/post/single/$content->id_post").'">
 													<li>
-<<<<<<< HEAD
+
 													<img src="'.base_url().'/'.$content->pic1.'" title="" alt="" class="object-fit_contain"/>
 													<img src="'.base_url().'/'.$content->pic2.'" title="" alt="" class="object-fit_contain"/>
 													<img src="'.base_url().'/'.$content->pic3.'" title="" alt="" class="object-fit_contain"/>
 													<img src="'.base_url().'/'.$content->pic4.'" title="" alt="" class="object-fit_contain"/>
 													<img src="'.base_url().'/'.$content->pic5.'" title="" alt="" class="object-fit_contain"/>
-=======
-													<img src="'.base_url().'/'.$content->pic1.'" title="" alt="" />
-													<img src="'.base_url().'/'.$content->pic2.'" title="" alt="" />
-													<img src="'.base_url().'/'.$content->pic3.'" title="" alt="" />
-													<img src="'.base_url().'/'.$content->pic4.'" title="" alt="" />
-													<img src="'.base_url().'/'.$content->pic5.'" title="" alt="" />
->>>>>>> 8177e44539a6082b798423c3ea8bfc1b3412638f
 													<section class="list-left">
 													<h5 class="title">'.$content->promo_title.'</h5>
 													<span class="cityname">'.$content->start_period.' s/d '.$content->end_period.'</span>
