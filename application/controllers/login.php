@@ -320,6 +320,7 @@ class login extends CI_Controller
                               $this->m_login->add_profile($add_profile,'app_profile');
                               $path = './img_post/'.$code;
                               mkdir($path,0755,TRUE);
+                              copy('./img_post/blank.jpg', $path."blank.jpg");
                               redirect('login');
 
                               

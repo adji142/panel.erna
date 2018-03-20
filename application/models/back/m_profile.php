@@ -13,7 +13,7 @@
 			return $this->db->query("select *,registration.user from app_profile,registration where registration.id_reg = app_profile.id_reg and app_profile.id_reg=$id_reg");
 		}
 		function storetype(){
-			return $this->db->query("select * from storetype");
+			return $this->db->query("select * from storetype where active = 1");
 		}
 		function userprofie($update,$where,$table){
 			$this->db->where($where);

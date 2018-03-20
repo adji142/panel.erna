@@ -157,19 +157,19 @@ use Facebook\FacebookCurl;
 		}
 		// echo $first."<br>".$second."<br>".$third."<br>".$fourth."<br>".$fived;
 		if($first==""){
-			$first="blank.jpg";
+			$first="empty";
 		}
 		if ($second=="") {
-			$second="blank.jpg";
+			$second="empty";
 		}
 		if ($third=="") {
-			$third="blank.jpg";
+			$third="empty";
 		}
 		if ($fourth=="") {
-			$fourth="blank.jpg";
+			$fourth="empty";
 		}
 		if ($fived=="") {
-			$fived="blank.jpg";
+			$fived="empty";
 		}
 		//go for input
 		$input = array(
@@ -189,6 +189,7 @@ use Facebook\FacebookCurl;
 			'pic5'=>'img_post/'.$id_reg.'/'.$fived
 		);
 		$this->m_post->go_post($input,'app_post');
+		
 		$this->session->set_flashdata('result_pass','
 				<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

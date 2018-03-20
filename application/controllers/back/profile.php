@@ -11,6 +11,7 @@
         	//session_start();
         	$this->load->model('back/m_dash');
         	$this->load->model('back/m_profile');
+        	$this->load->model('back/m_account');
 		}
 		function profile(){
 			$data['title']="Your profile - Towo.com";
