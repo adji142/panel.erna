@@ -12,6 +12,7 @@ class post extends CI_Controller
         $this->load->helper('cookie');
 		$this->load->model('front/m_id');
 		$this->load->model('front/m_post');
+        $this->load->model('front/m_comment');
 	}
     function fill($storetype){
         
@@ -72,6 +73,7 @@ class post extends CI_Controller
         if($post_det){
             $data['post_Detail'] = $post_det;
         }
+        $data['get_comment'] = $this->m_comment->get_comment($id)->result();
         $this->load->view('front/single',$data);
     }
     function create_rate(){

@@ -5,7 +5,7 @@
 <div class="container">
 <?php 
 require_once(APPPATH."views/front/part/tranding.php");
-require_once(APPPATH."views/front/part/futured.php");	
+// require_once(APPPATH."views/front/part/futured.php");	
 ?>
 </div>
 <?php

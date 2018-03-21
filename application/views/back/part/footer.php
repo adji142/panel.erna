@@ -52,3 +52,17 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>back/dist/js/demo.js"></script>
 </body>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+</html>

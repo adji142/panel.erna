@@ -56,19 +56,9 @@
 				<div class="clearfix"></div>
 				</form>
 			</div>
-			<!-- <div class="all-categories">
-				<h3> Pilih tag populer untuk mencari promo yang sempurna !</h3>
-				<ul class="all-cat-list">
-					<?php 
-						$get_tag = $this->m_post->get_tags()->result();
-						foreach ($get_tag as $tags) {
-							echo '<li><a href="#">'.$tags->tag.' <span class="num-of-ads">('.$tags->ct.')</span></a></li>';
-						}
-					?>
-					
-				</ul>
-			</div> -->
+			
 			<ol class="breadcrumb" style="margin-bottom: 5px;">
 			  <li><a href="index.html">Home</a></li>
 			  <li class="active">All Ads</li>
 			</ol>
+			

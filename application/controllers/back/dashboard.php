@@ -65,6 +65,10 @@
 			$data['title']="Expired promo - towo.com";
 			$this->load->view('back/expired',$data);
 		}
+		function feedback(){
+			$data['title'] = "Feedback from viewer - towo.com";
+			$this->load->view('back/feedback',$data);
+		}
 		public function upload(){
 			$id_reg = $this->session->userdata('id_reg');
 			$config['upload_path']          = './img_profile/';
