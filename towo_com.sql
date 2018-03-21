@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2018 at 11:00 AM
+-- Generation Time: Mar 21, 2018 at 11:02 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -85,37 +85,7 @@ CREATE TABLE `app_post` (
 --
 
 INSERT INTO `app_post` (`id_post`, `id_reg`, `promo_title`, `description`, `post_date`, `start_period`, `end_period`, `status`, `tag`, `pic1`, `pic2`, `pic3`, `pic4`, `pic5`) VALUES
-(6765, '781066894', 'second test #tag', '#tag #coba #towo.com', '2017-10-07 09:01:43', '2018-03-19', '2018-12-31', 'running', 'tag,coba,towo', 'img_post/781066894/Lighthouse.jpg', 'img_post/781066894/27321_-_Gray_Knitted_Retro_-_Sweater_-_175_000,Woo', 'img_post/781066894/27321_-_Gray_Knitted_Retro_-_Sweater_-_175_000,Woo', 'img_post/781066894/27321_-_Gray_Knitted_Retro_-_Sweater_-_175_000,Woo', 'img_post/781066894/0'),
-(8355, '781066894', 'asd', 'asd', '2017-11-18 07:40:03', '2017-11-18', '2017-11-19', 'expired', '', 'img_post/781066894/Screenshot_2017-04-16-11-11-11.png', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(23565, '781066894', 'Komisi Orang Muda', 'Komisi Orang Muda datang bos', '2017-11-24 14:39:31', '2017-11-24', '2017-11-25', 'expired', '', 'img_post/781066894/images-3.png', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(25866, '781066894', 'waaahhhh', 'wahhhh', '2017-11-24 15:10:30', '2017-11-24', '2017-11-25', 'expired', '', 'img_post/781066894/POMP.png', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(26077, '781066894', 'this is chek for (edit)', 'this is chek for new post #for #insert #tag (edited) ', '2017-10-07 14:56:37', '2018-03-13', '2018-03-31', 'running', 'for,insert,tag', 'img_post/781066894/profile.png', 'img_post/781066894/images5.png', 'img_post/781066894/203120714.png', 'img_post/781066894/0', 'img_post/781066894/0'),
-(28662, '781066894', 'asd', 'asdasd', '2017-11-18 08:56:25', '2017-11-18', '2017-11-19', 'expired', '', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(30163, '781066894', 'v', 'v', '2017-11-18 08:58:37', '2017-11-18', '2017-11-19', 'expired', '', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(30383, '781066894', 'no pic', 'thisis no pic', '2017-10-26 14:13:51', '2017-11-11', '2017-11-18', 'expired', '', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(30789, '781066894', 'test lagi', 'asd asd asda asdasd asd asd', '2017-11-24 14:46:20', '2017-11-24', '2017-11-25', 'expired', '', 'img_post/781066894/IMG_5397.JPG', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(37460, '781066894', 'test', 'tes', '2017-11-18 08:55:54', '2017-11-18', '2017-11-19', 'expired', '', 'img_post/781066894/Screenshot_2017-04-16-11-11-111.png', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(42709, '781066894', 'test for input tag popula', 'test for input tag #population #for #test #only', '2017-10-07 14:29:43', '2017-10-07', '2017-10-14', 'expired', 'population,for,test,only', 'img_post/781066894/Tulips1.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(44021, '781066894', '#second test', '#test #second #population', '2017-10-08 12:53:57', '2017-10-08', '2017-10-15', 'expired', 'test,second,population', 'img_post/781066894/Lighthouse.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(46804, '781066894', '#test', '#test for #tag #population', '2017-10-08 12:52:51', '2017-10-08', '2017-10-15', 'expired', 'test,tag,population', 'img_post/781066894/Desert2.jpg', 'img_post/781066894/Chrysanthemum1.jpg', 'img_post/781066894/Hydrangeas3.jpg', 'img_post/781066894/Jellyfish3.jpg', 'img_post/781066894/Koala2.jpg'),
-(48840, '781066894', 'second post', 'asd #GO', '2017-10-26 06:46:08', '2017-10-26', '2017-10-27', 'expired', 'GO', 'img_post/781066894/Koala3.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(58233, '781066894', 'test for #view table', 'this is test for #view table #tag #population #view', '2017-10-08 13:16:22', '2017-10-08', '2017-10-15', 'expired', 'view,tag,population,view', 'img_post/781066894/Tulips3.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(61453, '781066894', '5 pic', 'this is for 5 pic', '2017-10-06 07:44:57', '2017-10-06', '2017-10-13', 'expired', 'Alaska,', 'img_post/781066894/Jellyfish.jpg', 'img_post/781066894/Hydrangeas.jpg', 'img_post/781066894/Koala.jpg', 'img_post/781066894/Lighthouse.jpg', 'img_post/781066894/Penguins.jpg'),
-(62167, '781066894', 'tag', '#tag #test', '2017-10-07 14:57:47', '2017-10-08', '2017-10-14', 'expired', 'tag,test', 'img_post/781066894/Hydrangeas1.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(62860, '781066894', 'test for hastag', 'this is #test for #tag in this site #towo.com', '2017-10-07 07:03:07', '2017-10-07', '2017-10-14', 'expired', 'towo,', 'img_post/781066894/Lighthouse.jpg', 'img_post/781066894/27314_-_Dark_Blue_Velvet_Retro_(M,L)_-_Cheongsam_N', 'img_post/781066894/27314_-_Dark_Blue_Velvet_Retro_(M,L)_-_Cheongsam_N', 'img_post/781066894/27314_-_Dark_Blue_Velvet_Retro_(M,L)_-_Cheongsam_N', 'img_post/781066894/0'),
-(64208, '781066894', '2 pic', 'this is for 2 pic', '2017-10-06 07:43:36', '2017-10-06', '2017-10-13', 'expired', 'California,', 'img_post/781066894/Desert.jpg', 'img_post/781066894/Chrysanthemum.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(65707, '781066894', 'Test publis to facebook', 'let\'s see our facebook page #test #faceboook', '2017-11-24 14:41:16', '2017-11-24', '2017-11-25', 'expired', 'test,faceboook', 'img_post/781066894/1048260_556478281080926_271228267_o.jpg', 'img_post/781066894/1015763_556478261080928_250115770_o.jpg', 'img_post/781066894/1052296_556492607746160_1080880065_o.jpg', 'img_post/781066894/1053223_556492854412802_1644052625_o1.jpg', 'img_post/781066894/1072150_556492004412887_592277851_o.jpg'),
-(68518, '781066894', '1 pic', 'this is for 1 pic', '2017-10-06 07:42:46', '2017-10-06', '2017-10-13', 'expired', 'California,', 'img_post/781066894/images2.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(74261, '781066894', 'test', 'test for next edit status post', '2017-11-04 17:18:08', '2017-11-04', '2017-11-05', 'expired', '', 'img_post/781066894/175.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(77896, '781066894', 'test for post expired', 'asd', '2017-11-06 03:55:18', '2017-11-06', '2017-11-07', 'expired', '', 'img_post/781066894/1053223_556492854412802_1644052625_o.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(80050, '781066894', 'second test', '#hard #tocek #this hahaha', '2017-10-07 07:05:58', '2017-10-07', '2017-10-14', 'expired', 'this,', 'img_post/781066894/Lighthouse.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(83248, '781066894', 'test lagi om', 'fb yaa', '2017-11-24 15:08:49', '2017-11-24', '2017-11-25', 'expired', '', 'img_post/781066894/TTD_Pak_Hariyadi_-_Copy.jpg', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(85916, '781066894', 'test  post facebook', 'asd asd asd #asd', '2017-11-24 15:03:18', '2017-11-24', '2017-11-25', 'expired', 'asd', 'img_post/781066894/AIS_Logo_polos.png', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(86843, '781066894', 'a', 'a', '2017-11-18 08:57:40', '2017-11-18', '2017-11-19', 'expired', '', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(92114, '781066894', 'test for expired date', '#asd', '2017-10-25 15:14:20', '2017-10-25', '2017-10-29', 'expired', 'asd', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(93637, '781066894', 'for 3 pic', 'this is for 3 pic', '2017-10-06 07:46:59', '2017-10-06', '2017-10-13', 'expired', 'California,', 'img_post/781066894/P_20170807_173528_BF.jpg', 'img_post/781066894/P_20170807_173528_BF.jpg', 'img_post/781066894/images3.png', 'img_post/781066894/0', 'img_post/781066894/0'),
-(95321, '781066894', 'vb', 'vbb', '2017-11-18 08:59:05', '2017-11-18', '2017-11-19', 'expired', '', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0'),
-(97335, '781066894', 'this is chek for (edit)', 'asd', '2017-10-26 06:45:28', '2017-10-26', '2017-10-27', 'expired', '', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0', 'img_post/781066894/0');
+(21948, '781066894', 'test', 'test', '2018-03-21 10:28:35', '2018-03-20', '2018-12-31', 'running', '', 'img_post/781066894/15200572287083.jpg', 'img_post/781066894/empty', 'img_post/781066894/empty', 'img_post/781066894/empty', 'img_post/781066894/empty');
 
 -- --------------------------------------------------------
 
@@ -150,9 +120,11 @@ INSERT INTO `app_profile` (`id_reg`, `id_profile`, `firstname`, `lastname`, `Gen
 ('433746337', 'PR73470996', '', '', '', 'finance15008@centro.co.id', '', '', 0, '', '', '', '0000-00-00', 'img_profile/images21.png', ''),
 ('450378417', 'PR18420391', 'Prasetyo Aji', 'Wibowo', 'Male', 'it15008@centro.co.id', 'Departement store', 'Centro', 2011, 'solo', '(+62) 813-2505-8258', '(0271) 789-0200', '1996-02-29', 'img_profile/images-13.jpeg', 'toko terbaek nomer 4'),
 ('589263916', 'PR18905620', '', '', '', 'adjia7x@gmail.com', '', '', 0, '', '', '', '0000-00-00', 'img_profile/profile.jpg', ''),
-('781066894', 'PR96899318', '', '', '', 'gas@gas.com', 'None', 'solo', 0, 'Bibis Luhur, Nusukan, Kota Surakarta, Jawa Tengah, Indonesia', '', '', '0000-00-00', 'img_profile/images-15.jpeg', ''),
+('711029052', 'PR44314531', '', '', '', 'jos@jos.jos', '', '', 0, '', '', '', '0000-00-00', 'img_profile/blank.png', ''),
+('781066894', 'PR96899318', '', '', '', 'gas@gas.com', 'Distro', 'solo', 0, 'Bibis Luhur, Nusukan, Kota Surakarta, Jawa Tengah, Indonesia', '', '', '0000-00-00', 'img_profile/images-15.jpeg', ''),
 ('809051513', 'PR17300397', '', '', '', 'asd@asd.asd', '', '', 0, '', '', '', '0000-00-00', 'img_profile/profile.jpg', ''),
-('836608886', 'PR55413763', '', '', '', 'shoesbag15008@centro.co.id', '', '', 0, '', '', '', '0000-00-00', 'img_profile/profile.jpg', '');
+('836608886', 'PR55413763', '', '', '', 'shoesbag15008@centro.co.id', '', '', 0, '', '', '', '0000-00-00', 'img_profile/profile.jpg', ''),
+('91064453', 'PR86248693', '', '', '', 'prasetyoajiw@gmail.com', '', '', 0, '', '', '', '0000-00-00', 'img_profile/blank.png', '');
 
 -- --------------------------------------------------------
 
@@ -186,6 +158,27 @@ INSERT INTO `app_seting` (`RowID`, `RowRelation`, `Value`, `Desccription`) VALUE
 ('257e43ce-269d-11e8-a1e3-00ff40563bbb', '23a6bc44-2697-11e8-a1e3-00ff40563bbb', '1', 'menu'),
 ('26bb442f-269d-11e8-a1e3-00ff40563bbb', '24c94ac2-2697-11e8-a1e3-00ff40563bbb', '1', 'menu'),
 ('281b1408-269d-11e8-a1e3-00ff40563bbb', '25f54c5a-2697-11e8-a1e3-00ff40563bbb', '1', 'menu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id` char(50) NOT NULL,
+  `id_post` int(11) NOT NULL,
+  `user` varchar(50) NOT NULL,
+  `ip` varchar(25) NOT NULL,
+  `browser` varchar(250) NOT NULL,
+  `device_name` varchar(50) NOT NULL,
+  `feedback` varchar(500) NOT NULL,
+  `feedback_date` datetime NOT NULL,
+  `feedback_owner` varchar(500) NOT NULL,
+  `feedback_owner_date` datetime NOT NULL,
+  `read_for_owner` bit(1) NOT NULL,
+  `block` bit(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -257,7 +250,11 @@ INSERT INTO `foto` (`id_reg`, `id_post`, `nama_foto`, `token`) VALUES
 ('781066894', 30789, 'IMG_5397.JPG', '0.1277583442155017'),
 ('781066894', 85916, 'AIS_Logo_polos.png', '0.8833226374250793'),
 ('781066894', 83248, 'TTD_Pak_Hariyadi_-_Copy.jpg', '0.8604291888945166'),
-('781066894', 25866, 'POMP.png', '0.6449818470754045');
+('781066894', 25866, 'POMP.png', '0.6449818470754045'),
+('781066894', 58963, '1520057228708.jpg', '0.4426513709310944'),
+('781066894', 58804, '15200572287081.jpg', '0.05764336641188983'),
+('781066894', 75329, '15200572287082.jpg', '0.3959995150115969'),
+('781066894', 21948, '15200572287083.jpg', '0.8029151802504015');
 
 -- --------------------------------------------------------
 
@@ -466,7 +463,10 @@ INSERT INTO `log_login` (`id_reg`, `datetime`, `browser`, `OS`, `IP`) VALUES
 (781066894, '2018-03-13 08:53:16', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1'),
 (781066894, '2018-03-16 09:20:11', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1'),
 (781066894, '2018-03-19 02:30:24', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1'),
-(781066894, '2018-03-19 05:19:05', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1');
+(781066894, '2018-03-19 05:19:05', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1'),
+(781066894, '2018-03-20 07:53:34', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1'),
+(91064453, '2018-03-20 08:55:36', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1'),
+(781066894, '2018-03-21 10:22:12', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1');
 
 -- --------------------------------------------------------
 
@@ -525,9 +525,11 @@ INSERT INTO `registration` (`id_reg`, `user`, `email`, `pass`, `datetime_reg`, `
 ('433746337', 'finance', 'finance15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', '0000-00-00 00:00:00', '', '', ''),
 ('450378417', 'prasetyo Aji', 'it15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', '2017-09-15 15:10:11', 'Chrome 60.0.3112.113', 'Windows 7', '::1'),
 ('589263916', 'tampan', 'adjia7x@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2017-10-04 13:46:16', 'Chrome 61.0.3163.100', 'Windows 7', '::1'),
+('711029052', 'jos', 'jos@jos.jos', '7815696ecbf1c96e6894b779456d330e', '2018-03-20 08:58:04', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1'),
 ('781066894', 'GAS', 'gas@gas.com', 'e10adc3949ba59abbe56e057f20f883e', '2017-10-04 14:16:36', 'Chrome 61.0.3163.100', 'Windows 7', '::1'),
 ('809051513', 'asfdkhj', 'asd@asd.asd', 'e10adc3949ba59abbe56e057f20f883e', '2017-10-04 14:06:00', 'Chrome 61.0.3163.100', 'Windows 7', '::1'),
-('836608886', 'hoes', 'shoesbag15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', '2017-10-04 13:56:34', 'Chrome 61.0.3163.100', 'Windows 7', '::1');
+('836608886', 'hoes', 'shoesbag15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', '2017-10-04 13:56:34', 'Chrome 61.0.3163.100', 'Windows 7', '::1'),
+('91064453', 'aji', 'prasetyoajiw@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2018-03-20 08:54:44', 'Chrome 64.0.3282.186', 'Windows 8.1', '::1');
 
 -- --------------------------------------------------------
 
@@ -677,9 +679,11 @@ INSERT INTO `user` (`id_reg`, `email`, `pass`, `level`, `status`, `condition`) V
 ('433746337', 'finance15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'offline'),
 ('450378417', 'it15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'offline'),
 ('589263916', 'adjia7x@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'offline'),
+('711029052', 'jos@jos.jos', '7815696ecbf1c96e6894b779456d330e', 1, 'Activated', ''),
 ('781066894', 'gas@gas.com', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'online'),
 ('809051513', 'asd@asd.asd', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'offline'),
-('836608886', 'shoesbag15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'offline');
+('836608886', 'shoesbag15008@centro.co.id', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'offline'),
+('91064453', 'prasetyoajiw@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1, 'Activated', 'offline');
 
 -- --------------------------------------------------------
 
@@ -712,7 +716,13 @@ INSERT INTO `uservisit` (`id`, `ip`, `mac`, `browser`, `Host_Name`, `lastupdatet
 ('ec097e5c-28ef-11e8-a1e3-00ff40563bb', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-16 08:59:09'),
 ('38b9f60e-28f2-11e8-a1e3-00ff40563bb', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-16 09:15:36'),
 ('d11bcb45-28f2-11e8-a1e3-00ff40563bb', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-16 09:19:52'),
-('b1b8e647-2b14-11e8-a1e3-00ff40563bb', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-19 02:27:22');
+('b1b8e647-2b14-11e8-a1e3-00ff40563bb', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-19 02:27:22'),
+('85d379f0-2c07-11e8-bd6f-00ffd5add8e', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-20 07:25:43'),
+('8a8558dc-2c07-11e8-bd6f-00ffd5add8e', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-20 07:25:51'),
+('64359432-2c0b-11e8-bd6f-00ffd5add8e', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-20 07:53:25'),
+('5aa49547-2c14-11e8-bd6f-00ffd5add8e', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-20 08:57:34'),
+('a6173282-2caa-11e8-bd6f-00ffd5add8e', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-21 02:53:23'),
+('26ad99ce-2cea-11e8-bd6f-00ffd5add8e', '::1', '0', 'Chrome 64.0.3282.186', '0', '2018-03-21 10:27:57');
 
 -- --------------------------------------------------------
 
@@ -753,8 +763,10 @@ INSERT INTO `ver_code` (`ver_code`, `email`, `id_reg`, `status`) VALUES
 (28381, 'adjia7x@gmail.com', '589263916', 'Activated'),
 (120788, '', '1662624513748373', 'Activated'),
 (624237, 'it15008@centro.co.id', '450378417', 'Activated'),
+(677764, 'prasetyoajiw@gmail.com', '91064453', 'Activated'),
 (701965, 'finance15008@centro.co.id', '433746337', 'Activated'),
 (703979, 'asd@asd.asd', '809051513', 'Activated'),
+(707031, 'jos@jos.jos', '711029052', 'Activated'),
 (856781, 'gas@gas.com', '781066894', 'Activated'),
 (973358, 'shoesbag15008@centro.co.id', '836608886', 'Activated');
 
@@ -781,36 +793,64 @@ CREATE TABLE `view_like_post` (
 INSERT INTO `view_like_post` (`id`, `id_reg`, `id_post`, `view`, `like`, `user_ID`, `date_time`) VALUES
 ('024b6347-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:49:35'),
 ('039b0b16-2b15-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-19 02:29:39'),
+('1266a24b-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:56:01'),
+('15b236fb-2ceb-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:34:38'),
 ('1a8de90f-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:50:16'),
+('1e70ae19-2ceb-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:34:53'),
 ('25d1aae4-28c7-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:07:16'),
 ('33ea7e71-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:50:59'),
 ('3f45a406-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:51:18'),
 ('4311', '', 26077, 1, 0, '0', '2018-03-14 09:25:30'),
 ('43ac86f3-28f4-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 09:30:14'),
+('494ae54e-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:57:33'),
 ('49d06d71-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:51:35'),
+('4cb7faf1-2cea-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:29:01'),
+('4de1fa2a-2ceb-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:36:12'),
 ('531c3c59-28c7-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:08:32'),
 ('53f84ebb-28f4-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 09:30:41'),
 ('547cc3a5-276e-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:59:03'),
+('5571cdc4-2ceb-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:36:25'),
 ('57e8ca3e-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:51:59'),
 ('5b73938a-28cb-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:37:24'),
+('62b12639-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:58:16'),
 ('6a3d0563-28cb-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:37:49'),
+('70dbe483-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:58:39'),
 ('74976282-276e-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:59:57'),
 ('7761292f-28c7-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:09:33'),
+('78f7b827-2cec-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:44:34'),
+('7b7ba1bd-2ced-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:51:48'),
+('7da941ac-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:59:01'),
+('816a4cdb-2cec-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:44:48'),
 ('828546de-276e-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 11:00:20'),
+('84306ee4-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:59:12'),
 ('85f7b390-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:53:16'),
+('86b7c5c7-2cec-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:44:57'),
 ('8b7a6468-28c7-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:10:07'),
+('8ca889db-2cec-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:45:07'),
 ('903e4363-276e-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 11:00:43'),
+('92120ace-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:59:35'),
 ('97f1d492-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:53:46'),
 ('98032f70-276e-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 11:00:56'),
+('99c5298f-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:59:48'),
 ('9fbc7342-276e-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 11:01:09'),
 ('a2aeafb2-276c-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:46:55'),
 ('ab109c14-276c-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:47:09'),
+('b379aacc-2cec-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:46:12'),
+('baebca5d-2ceb-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:39:15'),
 ('c0ff460b-2761-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 09:29:01'),
 ('c16173c8-28c7-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:11:37'),
 ('c28dd30a-28c6-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-16 04:04:30'),
+('cef50a77-2cec-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:46:58'),
+('d2fc46da-2ced-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:54:14'),
+('d8362867-2cee-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 11:01:33'),
 ('e4a99015-276c-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:48:46'),
 ('ea3ecc05-276d-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:56:04'),
-('f3d10858-276c-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:49:11');
+('eae47322-2ced-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:54:55'),
+('f3d10858-276c-11e8-a1e3-00ff40563bb', '', 26077, 1, 0, '0', '2018-03-14 10:49:11'),
+('f49279d4-2cea-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:33:42'),
+('f79b5662-2ceb-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:40:57'),
+('fa7627c2-2cec-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:48:11'),
+('fdf4bd87-2ced-11e8-bd6f-00ffd5add8e', '', 21948, 1, 0, '0', '2018-03-21 10:55:27');
 
 -- --------------------------------------------------------
 
@@ -872,6 +912,12 @@ ALTER TABLE `app_post`
 ALTER TABLE `app_profile`
   ADD PRIMARY KEY (`id_reg`),
   ADD UNIQUE KEY `id_profile` (`id_profile`);
+
+--
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `ratting`

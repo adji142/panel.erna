@@ -113,12 +113,7 @@
 
 						
 						<p>Share</p>
-						<hr width ="70%" size ="10px">
-						<p>Review</p>
 						
-						<h1>
-							'.substr($avg, 0,3).'<p>50 Ulasan</p>
-						</h1>
 					</div>
 				</div>
 				<div class="col-md-5 product-details-grid">
@@ -151,6 +146,79 @@
 			}
 
 				?>
+				<style type="text/css">
+.widget-area {
+background-color: #fff;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+-webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+-moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+-ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+-o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
+float: left;
+margin-top: 30px;
+padding: 25px 30px;
+position: relative;
+width: 100%;
+}
+.status-upload {
+background: none repeat scroll 0 0 #f5f5f5;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+-ms-border-radius: 4px;
+-o-border-radius: 4px;
+border-radius: 4px;
+float: left;
+width: 100%;
+}
+.status-upload form {
+float: left;
+width: 100%;
+}
+.status-upload form textarea {
+background: none repeat scroll 0 0 #fff;
+border: medium none;
+-webkit-border-radius: 4px 4px 0 0;
+-moz-border-radius: 4px 4px 0 0;
+-ms-border-radius: 4px 4px 0 0;
+-o-border-radius: 4px 4px 0 0;
+border-radius: 4px 4px 0 0;
+color: #777777;
+float: left;
+font-family: Lato;
+font-size: 14px;
+height: 142px;
+letter-spacing: 0.3px;
+padding: 20px;
+width: 100%;
+resize:vertical;
+outline:none;
+border: 1px solid #F2F2F2;
+}
+.no-padding {
+padding: 0;
+}
+				</style>
+				<div class="product-desc">
+					<div class="col-md-7 product-view">
+						<p>Review</p>
+							<h1><p>50 Ulasan</p></h1>
+							<form>
+							<div class="widget-area no-padding blank">
+								<div class="status-upload">
+									<textarea rows="4" cols="80" wrap="hard"></textarea>
+								   <!-- <input type="text" class="user" value="Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}"/> -->
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
+							</form>
+					</div>
+				</div>
 			<div class="clearfix"></div>
 			</div>
 		</div>
