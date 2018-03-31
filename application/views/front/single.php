@@ -213,6 +213,7 @@ padding: 0;
 				</style>
 				<div class="product-desc">
 					<div class="col-md-7 product-view">
+<<<<<<< HEAD
 							<div class="page-header">
                     <h1><small class="pull-right"><?php echo count($get_comment);?></small> Comments </h1>
                     <form method="POST" action="<?php echo base_url()?>front/comment/makecomment">
@@ -221,11 +222,21 @@ padding: 0;
 									<textarea name="comment" rows="4" cols="80" wrap="hard" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Beri Kami ulasan';}"></textarea>
 								   <input type="hidden" class="user" value="<?php echo $id_post;?>" name = "id_post"/>
 								   <input type="hidden" class="user" value="<?php echo $id_reg;?>" name = "company_name"/>
+=======
+						<p>Review</p>
+							<h1><p>50 Ulasan</p></h1>
+							<form>
+							<div class="widget-area no-padding blank">
+								<div class="status-upload">
+									<textarea rows="4" cols="80" wrap="hard"></textarea>
+								   <!-- <input type="text" class="user" value="Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}"/> -->
+>>>>>>> fbd796cbd8d6049e37d1c82a8e3604d0e8e9d54f
 								</div>
 								<div class="clearfix"> </div>
 							</div>
 							<button type="submit" class="btn btn-success green"><i class="fa fa-share"></i> Share</button>
 							</form>
+<<<<<<< HEAD
                   </div> 
                   <table id="example2" class="">
 						<thead>
@@ -257,6 +268,8 @@ padding: 0;
                   	}
                   ?>
                    </table>
+=======
+>>>>>>> fbd796cbd8d6049e37d1c82a8e3604d0e8e9d54f
 					</div>
 				</div>
 			<div class="clearfix"></div>
