@@ -221,6 +221,13 @@ padding: 0;
 									<textarea name="comment" rows="4" cols="80" wrap="hard" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Beri Kami ulasan';}"></textarea>
 								   <input type="hidden" class="user" value="<?php echo $id_post;?>" name = "id_post"/>
 								   <input type="hidden" class="user" value="<?php echo $id_reg;?>" name = "company_name"/>
+						<p>Review</p>
+							<h1><p>50 Ulasan</p></h1>
+							<form>
+							<div class="widget-area no-padding blank">
+								<div class="status-upload">
+									<textarea rows="4" cols="80" wrap="hard"></textarea>
+								   <!-- <input type="text" class="user" value="Your Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Your Email';}"/> -->
 								</div>
 								<div class="clearfix"> </div>
 							</div>
