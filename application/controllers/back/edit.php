@@ -134,19 +134,19 @@
 			}
 			}
 			if($first==""){
-			$first="0";
+			$first="empty";
 			}
 			if ($second=="") {
-				$second="0";
+				$second="empty";
 			}
 			if ($third=="") {
-				$third="0";
+				$third="empty";
 			}
 			if ($fourth=="") {
-				$fourth="0";
+				$fourth="empty";
 			}
 			if ($fived=="") {
-				$fived="0";
+				$fived="empty";
 			}
 			$update = array(
 				'promo_title'=>$title,

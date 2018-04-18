@@ -65,19 +65,19 @@ body{
   $data = $this->m_edit->get_photo($id_post,$id_reg)->result();
   $pic = array();
     foreach ($data as $key) {
-      if($key->pic1 != "img_post/".$id_reg."/0"){
+      if($key->pic1 != "img_post/".$id_reg."/empty"){
         array_push($pic, $key->pic1);
       }
-      if($key->pic2 != "img_post/".$id_reg."/0"){
+      if($key->pic2 != "img_post/".$id_reg."/empty"){
         array_push($pic, $key->pic2);
       }
-      if($key->pic3 != "img_post/".$id_reg."/0"){
+      if($key->pic3 != "img_post/".$id_reg."/empty"){
         array_push($pic, $key->pic3);
       }
-      if($key->pic4 != "img_post/".$id_reg."/0"){
+      if($key->pic4 != "img_post/".$id_reg."/empty"){
         array_push($pic, $key->pic4);
       }
-      if($key->pic5 != "img_post/781066894/0"){
+      if($key->pic5 != "img_post/781066894/empty"){
         array_push($pic, $key->pic5);
       }
     }

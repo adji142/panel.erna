@@ -24,7 +24,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>Resale a Business Category Flat Bootstrap Responsive Website Template | Home :: w3layouts <?php echo $username;?></title>
+<title>Gotlet</title>
 <link rel="stylesheet" href="<?php echo base_url();?>front/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo base_url();?>front/css/bootstrap-select.css">
 <link href="<?php echo base_url();?>front/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -140,7 +140,7 @@ var elem=$('#container ul');
 	<div class="header">
 		<div class="container">
 			<div class="logo">
-				<a href="index.html"><span>Re</span>sale</a>
+				<a href="<?php echo base_url(); ?>"><span>Go</span>Tlet</a>
 			</div>
 			<div class="header-right">
 			<?php echo $account;?>

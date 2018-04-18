@@ -57,8 +57,3 @@
 				</form>
 			</div>
 			
-			<ol class="breadcrumb" style="margin-bottom: 5px;">
-			  <li><a href="index.html">Home</a></li>
-			  <li class="active">All Ads</li>
-			</ol>
-			

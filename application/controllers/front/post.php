@@ -12,17 +12,28 @@ class post extends CI_Controller
         $this->load->helper('cookie');
 		$this->load->model('front/m_id');
 		$this->load->model('front/m_post');
-        $this->load->model('front/m_comment');
-	}
+        $this->load->model('front/m_comment');	}
     function fill($storetype){
-        
+        if($storetype == 'Goback'){
+            redirect('id');
+        }
         $data['title'] = "Towo.com categories ".$storetype;
         $data['total_rows'] = $this->m_post->record_count($storetype);
         $post = $this->m_post->fetch_post($storetype);
         // $data['have_post'] = null;
+        $bidangusaha = '';
+        foreach ($post as $key) {
+            $bidangusaha = $key->bidangusaha;
+        }
         if($post){
             $data['have_post'] = $post;
         }
+        $data['breadcrumb'] = '
+            <ol class="breadcrumb" style="margin-bottom: 5px;">
+              <li><a href="Goback">Home</a></li>
+              <li class="active">'.$bidangusaha.'</li>
+            </ol>
+        ';
         $this->load->view('front/fill', $data);
     }
     function filter_by(){
@@ -38,6 +49,22 @@ class post extends CI_Controller
         $this->load->view('front/fill', $data);
     }
     function single($id){
+
+        if($id == 'Goback'){
+            redirect('id');
+        }
+        elseif(substr($id, 0,3) == 'Dis'){
+            redirect('front/post/fill/dis');   
+        }
+        elseif (substr($id, 0,3) == 'foo') {
+            redirect('front/post/fill/foo');
+        }
+        elseif (substr($id, 0,3) == 'but') {
+            redirect('front/post/fill/but');
+        }
+        elseif (substr($id, 0,3) == 'oll'){
+            redirect('front/post/fill/oll');
+        }
         ob_start();
         system("ipconfig /all");
         $mycomp = ob_get_contents();
@@ -73,7 +100,22 @@ class post extends CI_Controller
         if($post_det){
             $data['post_Detail'] = $post_det;
         }
+        $bidangusaha = '';
+        $title = '';
+        $id_post='';
+        foreach ($post_det as $key) {
+            $bidangusaha = $key->bidangusaha;
+            $title = $key->promo_title;
+            $id_post = $key->id_post;
+        }
         $data['get_comment'] = $this->m_comment->get_comment($id)->result();
+        $data['breadcrumb'] = '
+            <ol class="breadcrumb" style="margin-bottom: 5px;">
+              <li><a href="Goback">Home</a></li>
+              <li><a href="'.substr($bidangusaha, 0,3).$id_post.'">'.$bidangusaha.'</a></li>
+              <li class="active">'.$title.'</li>
+            </ol>
+        ';
         $this->load->view('front/single',$data);
     }
     function create_rate(){

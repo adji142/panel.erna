@@ -93,6 +93,7 @@ img[class] {
 <div class="total-ads main-grid-border">
 	<div class="container">
 		<?php require_once(APPPATH."views/front/part/filter.php");?>
+		<?php echo $breadcrumb;?>
 		<div class="ads-grid">
 			<div class="ads-display col-md-12">
 					<div class="wrapper">					
@@ -135,19 +136,32 @@ img[class] {
 											echo "Tidak ada post untuk saat ini";
 										}
 										else{
+
 											foreach ($have_post as $content) {
+												$code = '';
+												if(substr($content->pic1,-5) != 'empty'){
+													$code .= '<img src="'.base_url().'/'.$content->pic1.'" title="" alt="" class="object-fit_contain"/>';
+												}
+												if (substr($content->pic2,-5) != 'empty') {
+													$code .= '<img src="'.base_url().'/'.$content->pic2.'" title="" alt="" class="object-fit_contain"/>';
+												}
+												if (substr($content->pic3,-5) != 'empty') {
+													$code .= '<img src="'.base_url().'/'.$content->pic3.'" title="" alt="" class="object-fit_contain"/>';
+												}
+												if (substr($content->pic4,-5) != 'empty') {
+													$code .= '<img src="'.base_url().'/'.$content->pic4.'" title="" alt="" class="object-fit_contain"/>';
+												}
+												if (substr($content->pic5,-5) != 'empty') {
+													$code .= '<img src="'.base_url().'/'.$content->pic5.'" title="" alt="" class="object-fit_contain"/>';
+												}
+												
 												echo '<tr><td>
 												<br>
 												<ul class="list">
 												<a href="'.base_url("front/post/single/$content->id_post").'">
 													<li>
-
-													<img src="'.base_url().'/'.$content->pic1.'" title="" alt="" class="object-fit_contain"/>
-													<img src="'.base_url().'/'.$content->pic2.'" title="" alt="" class="object-fit_contain"/>
-													<img src="'.base_url().'/'.$content->pic3.'" title="" alt="" class="object-fit_contain"/>
-													<img src="'.base_url().'/'.$content->pic4.'" title="" alt="" class="object-fit_contain"/>
-													<img src="'.base_url().'/'.$content->pic5.'" title="" alt="" class="object-fit_contain"/>
-													<section class="list-left">
+													'.$code.'
+													<section class="list-left"><br>
 													<h5 class="title">'.$content->promo_title.'</h5>
 													<span class="cityname">'.$content->start_period.' s/d '.$content->end_period.'</span>
 													<p class="catpath">'.$content->bidangusaha.'</p>
