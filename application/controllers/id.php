@@ -14,6 +14,7 @@ class Id extends CI_Controller
 		$this->load->model('DataModels');
 		$this->load->model('ModelsMember');
 		$this->load->model('ModelsExecuteMaster');
+		$this->load->model('ModelsXPDC');
 	}
 	function Index()
 	{
