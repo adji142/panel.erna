@@ -9,7 +9,7 @@
     <div id="breadcrumb"> 
         <a href="<?php echo base_url();?>" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
         <a href="#" class="tip-buttom"> Master</a>
-        <a href="#" class="tip-buttom"> Group Member</a>
+        <a href="#" class="tip-buttom"> Expedisi</a>
     </div>
   </div>
 <!--End-breadcrumbs-->
@@ -50,7 +50,7 @@
                                 <i class='icon-edit' data-toggle='tooltip' title='Edit Data'></i>
                               </button>
                               <button href='#' class='btn btn-mini btn-danger set_passif' id = '".$key->id."'>
-                                <i class='icon-edit' data-toggle='tooltip' title='Set Passif'></i>
+                                <i class='icon-trash' data-toggle='tooltip' title='Set Passif'></i>
                               </button>
                             </td>";
                             echo "<td>".$key->xpdccode."</td>";
@@ -95,7 +95,7 @@
     <div class="modal-content">  
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <p><h4>Add Member Group</h4></p>
+        <p><h4>Add XPDC</h4></p>
         <br>
         <form id="FrmAddXPDC" enctype='application/json'>
           <div class="control-group">
@@ -106,7 +106,7 @@
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">XPDC Code :</label>
+            <label class="control-label">XPDC Name :</label>
             <div class="controls">
               <input type="text" placeholder="XPDC Name" class="span5" id="xpdcname" name="xpdcname" required="">
             </div>
@@ -225,7 +225,7 @@
     <div class="modal-content">  
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <p><h4>Set Passif Group Member</h4></p>
+        <p><h4>Set Passif XPDC</h4></p>
         <br>
         <form id="Frmsetpassif" enctype='application/json'>
           <div class="control-group">
@@ -282,6 +282,17 @@ $(function () {
   // Add Member
   $('#addXPDC').click(function () {
     form_mode = 'add';
+    $('#idxpdc').val('');
+    $('#xpdccode').val('');
+    $('#xpdcname').val('');
+    $('#hqaddress').val('');
+    $('#csemail').val('');
+    $('#hqphone').val('');
+    $('#website').val('');
+    $('#trackingwebsite').val('');
+    $('#xpdcActDate').val('');
+    $('#ModalAddXPDCDetail').modal('show');
+    $('#ModalAddXPDCDetail').modal('toggle');
     $('#ModalAddXPDC').modal('show');
   });
   // $('#ModalAddXPDC').on('hidden.bs.modal', function () {
@@ -290,7 +301,6 @@ $(function () {
   $('#FrmAddXPDC').submit(function(e) {
     $('#btn_Saveheader').text('Tunggu Sebentar.....');
     $('#btn_Saveheader').attr('disabled',true);
-    $('#btCancelGr').attr('disabled',true);
 
     e.preventDefault();
     var me = $(this);
@@ -323,15 +333,16 @@ $(function () {
             $('#ModalAddXPDC').modal('show');
             $('#btn_Saveheader').text('Save');
             $('#btn_Saveheader').attr('disabled',false);
-            $('#btCancelGr').attr('disabled',false);
           }
         }
       });
     }
     else if(form_mode == 'edit'){
+      $('#btn_Saveheader').text('Tunggu Sebentar.....');
+      $('#btn_Saveheader').attr('disabled',true);
       $.ajax({
         type    :'post',
-        url     : '<?=base_url()?>MemberController/EditGroupMmber',
+        url     : '<?=base_url()?>XPDCController/UpdateXPDC',
         data    : me.serialize(),
         dataType: 'json',
         success : function (response) {
@@ -357,7 +368,6 @@ $(function () {
             $('#ModalAddXPDC').modal('show');
             $('#btn_Saveheader').text('Save');
             $('#btn_Saveheader').attr('disabled',false);
-            $('#btCancelGr').attr('disabled',false);
           }
         }
       });
@@ -397,6 +407,8 @@ $(function () {
             $('#xpdcActDate').val(v.tglaktif);
           });
           $('#xpdcActDate').attr('readonly',true);
+          $('#ModalAddXPDCDetail').modal('show');
+          $('#ModalAddXPDCDetail').modal('toggle');
           $('#ModalAddXPDC').modal('show');
         }
         else{
@@ -422,7 +434,7 @@ $(function () {
     // alert(id);
     $.ajax({
       type    :'post',
-      url     : '<?=base_url()?>MemberController/FindGroupMember',
+      url     : '<?=base_url()?>XPDCController/FindXPDC',
       data    : {id,id},
       dataType: 'json',
       success:function (response) {
@@ -438,7 +450,7 @@ $(function () {
             Swal.fire({
               type: 'error',
               title: 'Woops...',
-              text: 'Data Tidak Ditemukan',
+              text: 'Data XPDC Tidak Valid',
               // footer: '<a href>Why do I have this issue?</a>'
             }).then((result)=>{
               location.reload();
@@ -458,7 +470,7 @@ $(function () {
 
     $.ajax({
       type    :'post',
-      url     : '<?=base_url()?>MemberController/SetPassifGroupMmber',
+      url     : '<?=base_url()?>XPDCController/SetPasifXPDC',
       data    : me.serialize(),
       dataType: 'json',
       success : function (response) {
@@ -502,11 +514,10 @@ $(function () {
   $('#FrmAddXPDCDetail').submit(function(e) {
     $('#btn_SaveDetail').text('Tunggu Sebentar.....');
     $('#btn_SaveDetail').attr('disabled',true);
-    $('#btCancelGr').attr('disabled',true);
 
     e.preventDefault();
     var me = $(this);
-    if(form_mode =='add'){
+    // if(form_mode =='add'){
       $.ajax({
         type    :'post',
         url     : '<?=base_url()?>XPDCController/AddXPDCDetail',
@@ -535,53 +546,51 @@ $(function () {
             $('#ModalAddXPDCDetail').modal('show');
             $('#btn_SaveDetail').text('Save');
             $('#btn_SaveDetail').attr('disabled',false);
-            $('#btCancelGr').attr('disabled',false);
           }
         }
       });
-    }
-    else if(form_mode == 'edit'){
-      $.ajax({
-        type    :'post',
-        url     : '<?=base_url()?>MemberController/EditGroupMmber',
-        data    : me.serialize(),
-        dataType: 'json',
-        success : function (response) {
-          if(response.success == true){
-            $('#ModalAddXPDC').modal('toggle');
-            Swal.fire({
-              type: 'success',
-              title: 'Horay..',
-              text: 'Data Berhasil disimpan!',
-              // footer: '<a href>Why do I have this issue?</a>'
-            }).then((result)=>{
-              location.reload();
-            });
-          }
-          else{
-            $('#ModalAddXPDC').modal('toggle');
-            Swal.fire({
-              type: 'error',
-              title: 'Woops...',
-              text: 'Data Gagal disimpan! Silahkan hubungi administrator',
-              // footer: '<a href>Why do I have this issue?</a>'
-            });
-            $('#ModalAddXPDC').modal('show');
-            $('#btn_SaveDetail').text('Save');
-            $('#btn_SaveDetail').attr('disabled',false);
-            $('#btCancelGr').attr('disabled',false);
-          }
-        }
-      });
-    }
-    else {
-      Swal.fire({
-        type: 'error',
-        title: 'Woops...',
-        text: 'Undefined Form Mode!!',
-        // footer: '<a href>Why do I have this issue?</a>'
-      });
-    }
+    // }
+    // else if(form_mode == 'edit'){
+    //   $.ajax({
+    //     type    :'post',
+    //     url     : '<?=base_url()?>MemberController/EditGroupMmber',
+    //     data    : me.serialize(),
+    //     dataType: 'json',
+    //     success : function (response) {
+    //       if(response.success == true){
+    //         $('#ModalAddXPDC').modal('toggle');
+    //         Swal.fire({
+    //           type: 'success',
+    //           title: 'Horay..',
+    //           text: 'Data Berhasil disimpan!',
+    //           // footer: '<a href>Why do I have this issue?</a>'
+    //         }).then((result)=>{
+    //           location.reload();
+    //         });
+    //       }
+    //       else{
+    //         $('#ModalAddXPDC').modal('toggle');
+    //         Swal.fire({
+    //           type: 'error',
+    //           title: 'Woops...',
+    //           text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+    //           // footer: '<a href>Why do I have this issue?</a>'
+    //         });
+    //         $('#ModalAddXPDC').modal('show');
+    //         $('#btn_SaveDetail').text('Save');
+    //         $('#btn_SaveDetail').attr('disabled',false);
+    //       }
+    //     }
+    //   });
+    // }
+    // else {
+    //   Swal.fire({
+    //     type: 'error',
+    //     title: 'Woops...',
+    //     text: 'Undefined Form Mode!!',
+    //     // footer: '<a href>Why do I have this issue?</a>'
+    //   });
+    // }
   });
   // end add detail
 
@@ -599,10 +608,10 @@ $(function () {
         var i;
         for (i = 0; i < response.data.length; i++) {
           html += '<tr>' +
-                  '<td>'  +response.data[i].id+'</td>' +
+                  '<td>' + response.data[i].id+'</td>' +
                   '<td>' + response.data[i].service + '</td>' +
                   '<td>' + response.data[i].servicedesc + '</td>' +
-                  '<td>' + response.data[i].costperkg + '</td>' +
+                  '<td>' + formatNumber(response.data[i].costperkg) + '</td>' +
                   '<tr>';
         }
         $('#load_data').html(html);
@@ -614,8 +623,8 @@ $(function () {
 
 });
 function formatNumber(num) {
-    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-  }
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
 </script>
 <!-- <div class="row-fluid">
   <div id="footer" class="span12"> 2013 &copy; Matrix Admin. Brought to you by <a href="http://themedesigner.in">Themedesigner.in</a> </div>

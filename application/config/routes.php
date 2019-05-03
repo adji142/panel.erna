@@ -57,3 +57,4 @@ $route['home'] = 'Id/Home';
 $route['settingmember'] = 'Id/SettingMember';
 $route['groupmember'] = 'Id/grupmember';
 $route['xpdc'] = 'Id/MasterXPDC';
+$route['masterStock'] = 'Id/MasterStock';

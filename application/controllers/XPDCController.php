@@ -139,4 +139,73 @@ class XPDCController extends CI_Controller
 		}
 		echo json_encode($data);
 	}
+	function UpdateXPDC()
+	{
+		$data = array('success' => false ,'message'=>array(),'id' =>'');
+		$id = $this->input->post('idxpdc');
+		$xpdccode = $this->input->post('xpdccode');
+		$xpdcname = $this->input->post('xpdcname');
+		$costperkg = $this->input->post('costperkg');
+		$xpdcActDate = $this->input->post('xpdcActDate');
+		$hqaddress = $this->input->post('hqaddress');
+		$csemail = $this->input->post('csemail');
+		$hqphone = $this->input->post('hqphone');
+		$website = $this->input->post('website');
+		$trackingwebsite = $this->input->post('trackingwebsite');
+
+		$InsertData = array(
+			'xpdccode'			=> $xpdccode,
+			'xpdcname'			=> $xpdcname,
+			'tglaktif'			=> $xpdcActDate,
+			'alamathq'			=> $hqaddress,
+			'notlphq'			=> $hqphone,
+			'email'				=> $csemail,
+			'website'			=> $website,
+			'webtracking'		=> $trackingwebsite,
+		);
+		$where = array(
+			'id'				=> $id,
+		);
+		$exec = $this->ModelsExecuteMaster->ExecUpdate($InsertData,$where,'masterxpdc');
+		if($exec){
+			$data['success'] = true;
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'MemberController line 35',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '500-01';
+		}
+		echo json_encode($data);
+	}
+	function SetPasifXPDC()
+	{
+		$data = array('success' => false ,'message'=>array(),'id' =>'');
+		$id = $this->input->post('idGrppasif');
+		$passifdate = $this->input->post('passifdate');
+
+		$InsertData = array(
+			'tglpasif'			=> $passifdate,
+		);
+		$where = array(
+			'id'				=> $id,
+		);
+		$exec = $this->ModelsExecuteMaster->ExecUpdate($InsertData,$where,'masterxpdc');
+		if($exec){
+			$data['success'] = true;
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'MemberController line 35',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '500-01';
+		}
+		echo json_encode($data);
+	}
 }

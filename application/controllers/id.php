@@ -15,6 +15,7 @@ class Id extends CI_Controller
 		$this->load->model('ModelsMember');
 		$this->load->model('ModelsExecuteMaster');
 		$this->load->model('ModelsXPDC');
+		$this->load->model('ModelsStock');
 	}
 	function Index()
 	{
@@ -35,5 +36,9 @@ class Id extends CI_Controller
 	function MasterXPDC()
 	{
 		$this->load->view('MasterXPDC');
+	}
+	function MasterStock()
+	{
+		$this->load->view('masterStock');
 	}
 }

@@ -46,7 +46,7 @@
                                 <i class='icon-edit' data-toggle='tooltip' title='Edit Data'></i>
                               </button>
                               <button href='#' class='btn btn-mini btn-danger set_passif' id = '".$key->id."'>
-                                <i class='icon-edit' data-toggle='tooltip' title='Set Passif'></i>
+                                <i class='icon-trash' data-toggle='tooltip' title='Set Passif'></i>
                               </button>
                             </td>";
                             echo "<td>".$key->namagrade."</td>";
