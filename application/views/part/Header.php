@@ -23,6 +23,9 @@
 
 <!-- datatabble -->
 <!-- <link rel="stylesheet" href="<?php echo base_url();?>Assets/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
+<style type="text/css">
+  .select2-drop {z-index: 99999;}
+</style>
 </head>
 <body>
 

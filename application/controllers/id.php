@@ -41,4 +41,8 @@ class Id extends CI_Controller
 	{
 		$this->load->view('masterStock');
 	}
+	function MutasiStock()
+	{
+		$this->load->view('MutasiStock');
+	}
 }

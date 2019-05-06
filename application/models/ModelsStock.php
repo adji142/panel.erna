@@ -14,7 +14,7 @@ class ModelsStock extends CI_Model
 	function GetStokSaldo()
 	{
 		$data = "
-			select a.kodestok,a.namastok,a.satuan,a.beratperpcs,a.statusstok,0 QtyReady,a.tglaktif FROM masterstok a
+			select a.id,a.kodestok,a.namastok,a.satuan,a.beratperpcs,a.statusstok,0 QtyReady,a.tglaktif FROM masterstok a
 			LEFT JOIN mutasistokdetail b on a.id = b.stokid
 			where a.tglpasif is null
 		";	

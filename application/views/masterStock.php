@@ -20,7 +20,7 @@
         <div class="widget-title"> <span class="icon"><i class=""><a href="#" id="addStk" class="btn btn-mini btn-info" data-toggle="tooltip" title="Tambah Stock Baru">Add</a></i></span>
             <h5>Master Stock</h5>
         </div>
-        <div class="widget-content nopadding">
+        <div class="widget-content">
             <table class="table table-bordered data-table" >
                 <thead>
                     <tr>
@@ -41,7 +41,11 @@
                         if($Recordset->num_rows() > 0){
                           foreach ($Recordset->result() as $key) {
                             echo "<tr class='gradeX'>";
-                            echo "<td>#</td>";
+                            echo "<td width = '5%'>
+                              <button href='#' class='btn btn-mini btn-danger set_passif' id = '".$key->id."'>
+                                <i class='icon-trash' data-toggle='tooltip' title='Set Pasif'></i>
+                              </button>
+                            </td>";
                             echo "<td>".$key->kodestok."</td>";
                             echo "<td>".$key->namastok."</td>";
                             echo "<td>".$key->satuan."</td>";
@@ -72,11 +76,9 @@
   </div>
 </div>
 </div>
-</div>
-
 <!-- models -->
 <div class="modal fade" id="ModalAddStock" role="dialog" aria-labelledby="myModalLabel" >
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width: auto; height: auto; ">
     <div class="modal-content">  
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -86,17 +88,8 @@
           <div class="control-group">
             <label class="control-label">Kode Stock :</label>
             <div class="controls">
-              <input type="text" class="span5" placeholder="Group Name" id="kodestok" name="kodestok" required="" readonly="" />
+              <input type="text" class="span5" placeholder="Kode Stock" id="kodestok" name="kodestok" required="" readonly="" />
               <input type="hidden" class="span5" placeholder="Group Name" id="idstok" name="idstok"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Status Stock</label>
-            <div class="controls">
-              <select >
-                <option>Ready Stock</option>
-                <option>Pre Order</option>
-              </select>
             </div>
           </div>
           <div class="control-group">
@@ -104,18 +97,72 @@
             <div class="controls">
               <div class="input-append">
                 <input type="text" placeholder="Nama Stock" class="span5" id="nmstok" name="nmstok" required="">
-                <span class="add-on">%</span> </div>
+              </div>
             </div>
           </div>
-          
+          <div class="control-group">
+            <label class="control-label">Status Stock</label>
+            <div class="controls">
+              <select id="statusstok" name="statusstok">
+                <option value="Ready">Ready Stock</option>
+                <option value="PO">Pre Order</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Satuan</label>
+            <div class="controls">
+              <div class="input-append">
+                <input type="text" placeholder="Satuan" class="span5" id="sat" name="sat" required="" maxlength="3">
+              </div>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Berat Bruto Per Pcs</label>
+            <div class="controls">
+                <input type="number" placeholder="Berat Bruto Per Pcs" class="span5" id="berat" name="berat" required="" >
+                <span class="help-block">Satuan berat (gr/Gram)</span> 
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Tanggal Aktif</label>
+            <div class="controls">
+              <input type="date" data-date-format="dd-mm-yyyy" class="datepicker span5" id="stkcActDate" name="stkcActDate" required="">
+              <span class="help-block">Date with Formate of  (dd-mm-yy)</span> 
+            </div>
+          </div>
 
-          <!-- <button class="btn btn-primary" id="btn_SaveGroup">Save</button> -->
+          <button class="btn btn-primary" id="btn_SaveStk">Save</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="ModalSetPassif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">  
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <p><h4>Set Passif Stock</h4></p>
+        <br>
+        <form id="Frmsetpassif" enctype='application/json'>
+          <div class="control-group">
+            <label class="control-label">Tanggal Pasif</label>
+            <div class="controls">
+              <input type="hidden" class="span5" placeholder="Group Name" id="idGrppasif" name="idGrppasif"/>
+              <input type="date" data-date-format="dd-mm-yyyy" class="datepicker span5" id="passifdate" name="passifdate" required="">
+              <span class="help-block">Date with Formate of  (dd-mm-yy)</span> </div>
+          </div>
+          <button class="btn btn-primary" id="btn_setpassif">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- End models -->
+</div>
 <?php
     require_once(APPPATH."views/part/footer.php");
 ?>
@@ -134,10 +181,134 @@
     $('#addStk').click(function () {
       form_mode = 'add';
       $('#ModalAddStock').modal('show');
+      var datetime = new Date();
+      var day = datetime.getDate();
+      var month = datetime.getMonth() + 1; //month: 0-11
+      var year = datetime.getFullYear();
+      var random1 = Math.floor(Math.random() * 500);
+      var random2 = Math.floor(Math.random() * 250);
+      $('#kodestok').val('STK-'.concat(day,month,year,random1,random2));
+      $('#idstok').val('');
+      $('#nmstok').val('');
+      $('#sat').val('');
+      $('#berat').val('');
+      $('#stkcActDate').val('');
     });
-    $('#ModalAddStock').draggable().on('shown', function() {
-      $(document).off('focusin.modal');
-  });
+
+    $('#FrmAddStock').submit(function (e) {
+      $('#btn_SaveStk').text('Tunggu Sebentar.....');
+      $('#btn_SaveStk').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+
+      if(form_mode == 'add' ){
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>StockController/InsertStock',
+          data    : me.serialize(),
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              $('#ModalAddStock').modal('toggle');
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              $('#ModalAddStock').modal('toggle');
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#ModalAddStock').modal('show');
+              $('#btn_SaveStk').text('Save');
+              $('#btn_SaveStk').attr('disabled',false);
+            }
+          }
+        });
+      }
+
+    });
+
+    $('.set_passif').click(function () {
+      var id = $(this).attr("id");
+      // alert(id);
+      $.ajax({
+        type    :'post',
+        url     : '<?=base_url()?>StockController/FindStock',
+        data    : {id,id},
+        dataType: 'json',
+        success:function (response) {
+          if(response.success == true){
+            $.each(response.data,function (k,v) {
+              $('#idGrppasif').val(v.id);
+            });
+            $('#ModalSetPassif').modal('show');
+          }
+          else{
+            if(response.message = '404-01'){
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Stock Tidak Valid',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+          }
+        }
+      });
+    });
+
+    $('#Frmsetpassif').submit(function(e) {
+      $('#btn_setpassif').text('Tunggu Sebentar.....');
+      $('#btn_setpassif').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+
+      $.ajax({
+        type    :'post',
+        url     : '<?=base_url()?>StockController/SetPasifStock',
+        data    : me.serialize(),
+        dataType: 'json',
+        success : function (response) {
+          if(response.success == true){
+            $('#ModalSetPassif').modal('toggle');
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+            });
+          }
+          else{
+            $('#ModalSetPassif').modal('toggle');
+            Swal.fire({
+              type: 'error',
+              title: 'Woops...',
+              text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+              // footer: '<a href>Why do I have this issue?</a>'
+            });
+            $('#ModalSetPassif').modal('show');
+            $('#btn_setpassif').text('Save');
+            $('#btn_setpassif').attr('disabled',false);
+          }
+        }
+      });
+    });
+    
   });
 </script>
 <!-- <div class="row-fluid">

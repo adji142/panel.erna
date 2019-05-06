@@ -24,4 +24,8 @@ class ModelsExecuteMaster extends CI_Model
 		$this->db->where($where);
 		return $this->db->get($table);
 	}
+	function FindDataWithLike($where,$table){
+		$this->db->like($where,'both');
+		return $this->db->get($table);
+	}
 }

@@ -27,10 +27,21 @@ class GlobalVar extends CI_Model
 			inner join permissionrole c on b.roleid = c.roleid
 			inner join permission d on c.permissionid = d.id
 			where a.id = $userid
-			order by menusubmenu asc
+			and d.menusubmenu not like '%.%'
+			order by REPLACE(left(d.menusubmenu,2),'.','') asc
 		";
 		return $this->db->query($data);
 	}
+	function GetSideBar_submenu($menu)
+	{
+		$data = "
+			select * from permission
+			where REPLACE(left(menusubmenu,2),'.','') = $menu
+			and menusubmenu like '%.%'
+		";
+		return $this->db->query($data);
+	}
+
 	function GetMasterPPA($value)
 	{
 		$this->db->where('id',$value);
