@@ -9,6 +9,7 @@
     <div id="breadcrumb"> 
         <a href="<?php echo base_url();?>" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
         <a href="#" class="tip-buttom"> Mutasi Stock</a>
+
     </div>
     <!-- <form id="search" enctype='application/json'> -->
     
@@ -18,7 +19,7 @@
   <div class="row-fluid">
     <div class="span12">
     <div class="widget-box">
-        <div class="widget-title"> <span class="icon"><i class=""><a href="#" id="addStk" class="btn btn-mini btn-info" data-toggle="tooltip" title="Tambah Stock Baru">Add</a></i></span>
+        <div class="widget-title"> <span class="icon"><i class=""><a href="#" id="addMts" class="btn btn-mini btn-info" data-toggle="tooltip" title="Tambah Mutasi Baru">Add</a></i></span>
             <h5>Mutasi Stock</h5>
 
         </div>
@@ -40,55 +41,12 @@
                       <th>#</th>
                       <th>No Transaksi</th>
                       <th>Tanggal Transaksi</th>
-                      <th>Kode Stock</th>
-                      <th>Nama Stock</th>
                       <th>Sumber Stock</th>
-                      <th>Detail Stock</th>
+                      <th>Di buat oleh</th>
                     </tr>
               </thead>
-              <tbody>
-                    
-                      <?php
-                        // $Recordset = $this->ModelsStock->GetStokSaldo();
-                        // if($Recordset->num_rows() > 0){
-                        //   foreach ($Recordset->result() as $key) {
-                        //     echo "<tr class='gradeX'>";
-                        //     echo "<td width = '5%'>
-                        //       <button href='#' class='btn btn-mini btn-info print' id = '".$key->id."'>
-                        //         <i class='icon-print' data-toggle='tooltip' title='Set Pasif'></i>
-                        //       </button>
-                        //     ";
-                        //     if($user_id = 1){
-                        //       echo "
-                        //         <button href='#' class='btn btn-mini btn-warnig Revisi' id = '".$key->id."'>
-                        //           <i class='icon-share' data-toggle='tooltip' title='Set Pasif'></i>
-                        //         </button>
-                        //       ";
-                        //     }
-                        //     echo "</td>";
-                        //     echo "<td>".$key->kodestok."</td>";
-                        //     echo "<td>".$key->namastok."</td>";
-                        //     echo "<td>".$key->satuan."</td>";
-                        //     echo "<td>".$key->beratperpcs."</td>";
-                        //     echo "<td>".$key->statusstok."</td>";
-                        //     echo "<td>".$key->QtyReady."</td>";
-                        //     echo "<td>".$key->tglaktif."</td>";
-                        //     echo "</tr>";
-                        //   }
-                        // }
-                        // else{
-                        //     echo "<tr class='gradeX'>";
-                        //     echo "<td></td>";
-                        //     echo "<td></td>";
-                        //     echo "<td></td>";
-                        //     echo "<td></td>";
-                        //     echo "<td></td>";
-                        //     echo "<td></td>";
-                        //     echo "<td></td>";
-                        //     echo "<td></td>";
-                        //     echo "</tr>";
-                        // }
-                      ?>
+              <tbody id="load_data"> 
+
               </tbody>
             </table>
         </div>
@@ -99,64 +57,87 @@
 </div>
 </div>
 </div>
-
-<!-- models -->
-<div class="modal fade" id="ModalAddStock" role="dialog" aria-labelledby="myModalLabel" >
+<!-- sparator -->
+<div class="modal fade" id="ModalDetailMutasi" role="dialog" aria-labelledby="myModalLabel" >
   <div class="modal-dialog">
     <div class="modal-content">  
       <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <p><h4>Add Member Group</h4></p>
+        <p><h4>Add Mutasi Detail</h4></p>
         <br>
-        <form id="FrmAddStock" enctype='application/json'>
+        <form id="FrmAddMutDet" enctype='application/json'>
           <div class="control-group">
-            <label class="control-label">Kode Stock :</label>
-            <div class="controls">
-              <input type="text" class="span5" placeholder="Kode Stock" id="kodestok" name="kodestok" required="" readonly="" />
-              <input type="hidden" class="span5" placeholder="Group Name" id="idstok" name="idstok"/>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Nama Stock</label>
-            <div class="controls">
-              <div class="input-append">
-                <input type="text" placeholder="Nama Stock" class="span5" id="nmstok" name="nmstok" required="">
+            <label class="control-label">Stock :</label>
+              <div class="controls">
+                <select id="kodestk" name="kodestk">
+                  <?php
+                    $exec = $this->ModelsExecuteMaster->FindData(array('tglpasif'=>null),'masterstok');
+                    if($exec->num_rows()){
+                      foreach ($exec->result() as $key) {
+                        echo '<option value="'.$key->id.'">'.$key->kodestok.' | '.$key->namastok.'</option>';
+                      }
+                    }
+                  ?>
+                </select>
               </div>
+              <input type="hidden" class="span5" placeholder="Group Name" id="mutasiid" name="mutasiid"/>
+              <input type="hidden" class="span5" placeholder="userid" id="useriddetail" name="useriddetail" value="<?php echo $user_id;?>" />
+          </div>
+          <div class="control-group">
+            <label class="control-label">Qty :</label>
+            <div class="controls">
+              <input type="Number" class="span5" placeholder="Qty" id="qty" name="qty" required="" />
             </div>
           </div>
           <div class="control-group">
-            <label class="control-label">Status Stock</label>
+            <label class="control-label">Harga /pcs :</label>
             <div class="controls">
-              <select id="statusstok" name="statusstok">
-                <option value="Ready">Ready Stock</option>
-                <option value="PO">Pre Order</option>
-              </select>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Satuan</label>
-            <div class="controls">
-              <div class="input-append">
-                <input type="text" placeholder="Satuan" class="span5" id="sat" name="sat" required="" maxlength="3">
-              </div>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Berat Bruto Per Pcs</label>
-            <div class="controls">
-                <input type="number" placeholder="Berat Bruto Per Pcs" class="span5" id="berat" name="berat" required="" >
-                <span class="help-block">Satuan berat (gr/Gram)</span> 
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label">Tanggal Aktif</label>
-            <div class="controls">
-              <input type="date" data-date-format="dd-mm-yyyy" class="datepicker span5" id="stkcActDate" name="stkcActDate" required="">
-              <span class="help-block">Date with Formate of  (dd-mm-yy)</span> 
+              <input type="text" class="span5" placeholder="Harga Per PCS" id="hrgperpcs" name="hrgperpcs" required="" />
             </div>
           </div>
 
-          <button class="btn btn-primary" id="btn_SaveStk">Save</button>
+          <button class="btn btn-primary" id="btn_SaveMutDet">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- models -->
+<div class="modal fade" id="ModalHeaderMutasi" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content">  
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <p><h4>Add Mutasi Header</h4></p>
+        <br>
+        <form id="FrmAddMut" enctype='application/json'>
+          <div class="control-group">
+            <label class="control-label">Nomer transaksi :</label>
+            <div class="controls">
+              <input type="text" class="span5" placeholder="Nomer Transaksi" id="notrx" name="notrx" required="" />
+              <input type="hidden" class="span5" placeholder="Group Name" id="idmut" name="idmut"/>
+              <input type="text" class="span5" placeholder="userid" id="userid" name="userid" value="<?php echo $user_id;?>" />
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Tanggal Transaksi</label>
+            <div class="controls">
+              <!-- <input type="hidden" class="span5" placeholder="Group Name" id="tgltrx" name="tgltrx"/> -->
+              <input type="date" data-date-format="dd-mm-yyyy" class="datepicker span5" id="tgltrx" name="tgltrx" required="">
+              <span class="help-block">Date with Formate of  (dd-mm-yy)</span> </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Sumber Stock</label>
+            <div class="controls">
+              <select id="sumberstk" name="sumberstk">
+                <option value="1">Produksi</option>
+                <option value="2">Pembelian</option>
+                <option value="3">Retur</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="btn_SaveMut">Save</button>
         </form>
       </div>
     </div>
@@ -178,6 +159,19 @@
             Obj.data += '&csrf_token='+parts.pop().split(";").shift();
         }
     });
+    $('#hrgperpcs').keyup(function(event) {
+
+      // skip for arrow keys
+      if(event.which >= 37 && event.which <= 40) return;
+
+      // format number
+      $(this).val(function(index, value) {
+        return value
+        .replace(/\D/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        ;
+      });
+    });
     $( document ).ready(function() {
         var datetime = new Date();
         var month;
@@ -198,15 +192,169 @@
         // alert(year);
         $('#fromdate').val(''.concat(year,'-',month,'-01'));
         $('#todate').val(''.concat(year,'-',month,'-',day));
+
+        GetMutasi(''.concat(year,'-',month,'-01'),''.concat(year,'-',month,'-',day));
         // $('.modal').remove();
         // $('.modal-backdrop').remove();
         // $('body').removeClass( "modal-open" );
         // $('#ModalAddStock').data('modal', null);
         // $(".modal-body").empty();
     });
+    $('#ModalDetailMutasi').on('hidden.bs.modal', function () {
+      // location.reload();
+      var fromdate = $('#fromdate').val();
+      var todate = $('#todate').val();
+      GetMutasi(fromdate,todate);
+    });
+    $('#addMts').click(function () {
+      form_mode = 'add';
+      $('#notrx').val('');
+      $('#idstok').val('');
+      $('#userid').val('');
+      $('#tgltrx').val('');
+      // $('#ModalHeaderMutasi').modal('show');
+      // $('#ModalHeaderMutasi').modal('toggle');
+
+      $('#ModalHeaderMutasi').modal('show');
+    });
+
+    $('#FrmAddMutDet').submit(function (e) {
+      $('#btn_SaveMutDet').text('Tunggu Sebentar.....');
+      $('#btn_SaveMutDet').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+
+      $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>MutasiStockController/AddDetail',
+          data    : me.serialize(),
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              $('#ModalDetailMutasi').modal('toggle');
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                form_mode = 'repeat';
+                // location.reload();
+                $('#ModalDetailMutasi').modal('show');
+                $('#kodestk').focus();
+                $('#qty').val(0);
+                $('#hrgperpcs').val(0);
+                $('#btn_SaveMutDet').text('Save');
+                $('#btn_SaveMutDet').attr('disabled',false);
+              });
+            }
+            else{
+              $('#ModalDetailMutasi').modal('toggle');
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#ModalDetailMutasi').modal('show');
+              $('#btn_SaveMut').text('Save');
+              $('#btn_SaveMut').attr('disabled',false);
+            }
+          }
+        });
+    });
+
+    $('#FrmAddMut').submit(function(e) {
+      // alert(form_mode);
+      $('#btn_SaveMut').text('Tunggu Sebentar.....');
+      $('#btn_SaveMut').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      if(form_mode =='add'){
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>MutasiStockController/AddHeader',
+          data    : me.serialize(),
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              $('#ModalHeaderMutasi').modal('toggle');
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+                // $('#ModalDetailMutasi').modal('show');
+              });
+            }
+            else{
+              $('#ModalHeaderMutasi').modal('toggle');
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#ModalHeaderMutasi').modal('show');
+              $('#btn_SaveMut').text('Save');
+              $('#btn_SaveMut').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else if(form_mode == 'edit'){
+        $('#btn_Saveheader').text('Tunggu Sebentar.....');
+        $('#btn_Saveheader').attr('disabled',true);
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>XPDCController/UpdateXPDC',
+          data    : me.serialize(),
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              $('#ModalAddXPDC').modal('toggle');
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              $('#ModalAddXPDC').modal('toggle');
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#ModalAddXPDC').modal('show');
+              $('#btn_Saveheader').text('Save');
+              $('#btn_Saveheader').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else {
+        Swal.fire({
+          type: 'error',
+          title: 'Woops...',
+          text: 'Undefined Form Mode!!',
+          // footer: '<a href>Why do I have this issue?</a>'
+        });
+      }
+    });
 
     $('#todate').change(function () {
-      // alert('');
+      var fromdate = $('#fromdate').val();
+      var todate = $('#todate').val();
+      GetMutasi(fromdate,todate);
     });
 
     
@@ -214,14 +362,42 @@
   function GetMutasi(fromdate,todate) {
     $.ajax({
       type    :'post',
-      url     : '<?=base_url()?>StockController/SetPasifStock',
+      url     : '<?=base_url()?>MutasiStockController/GetMutasiStockHeader',
       data    : {fromdate:fromdate,todate:todate},
       dataType: 'json',
       success : function (response) {
-        
+        var html = '';
+        var i;
+        for (i = 0; i < response.data.length; i++) {
+          html += '<tr>' +
+                  '<td width = "20%"> '+
+                  '<button class="btn btn-mini btn-success" id ="" onClick = "AddDetail('+ response.data[i].id + ')"><i class="icon-plus-sign" data-toggle="tooltip" title="Add Detail Mutasi"></i></button>' +
+                  '<button class="btn btn-mini btn-warning" id ="" onClick = "SeeDetail('+ response.data[i].id + ')"><i class="icon-eye-open" data-toggle="tooltip" title="Lihat Detail '+response.data[i].jmlitem+' - Items"> '+response.data[i].jmlitem+' - items</i></button>' +
+                  '<button class="btn btn-mini btn-danger" id ="" onClick = "cancel('+ response.data[i].id + ')"><i class="icon-trash" data-toggle="tooltip" title="Cancel Mutasi"></i></button></td>' +
+                  '<td>' + response.data[i].notransaksi + '</td>' +
+                  '<td>' + response.data[i].tgltransaksi + '</td>' +
+                  '<td>' + response.data[i].whsname + '</td>' +
+                  '<td>' + response.data[i].username + '</td>' +
+                  '</tr>';
+        }
+        // alert(html);
+        $('#load_data').html(html);
       }
+    });
+  }
+  function AddDetail(id) {
+    // alert(id);
+    $('#ModalHeaderMutasi').modal('show');
+    $('#ModalHeaderMutasi').modal('toggle');
 
-    })
+    $('#mutasiid').val(id);
+    $('#ModalDetailMutasi').modal('show');
+    $('#kodestk').focus();
+    $('#qty').val(0);
+    $('#hrgperpcs').val(0);
+  }
+  function SeeDetail(id) {
+    // body...
   }
 </script>
 <!-- <div class="row-fluid">
