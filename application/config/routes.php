@@ -53,6 +53,8 @@ $route['default_controller'] = 'Id';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['logout'] = 'Auth/Auth_Login/logout';
+
 $route['home'] = 'Id/Home';
 $route['settingmember'] = 'Id/SettingMember';
 $route['groupmember'] = 'Id/grupmember';

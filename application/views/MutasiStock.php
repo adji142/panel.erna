@@ -116,7 +116,7 @@
             <div class="controls">
               <input type="text" class="span5" placeholder="Nomer Transaksi" id="notrx" name="notrx" required="" />
               <input type="hidden" class="span5" placeholder="Group Name" id="idmut" name="idmut"/>
-              <input type="text" class="span5" placeholder="userid" id="userid" name="userid" value="<?php echo $user_id;?>" />
+              <input type="hidden" class="span5" placeholder="userid" id="userid" name="userid" value="<?php echo $user_id;?>" />
             </div>
           </div>
           <div class="control-group">
@@ -144,6 +144,29 @@
   </div>
 </div>
 
+<div class="modal fade" id="SeeDetail" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog">
+    <div class="modal-content">  
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <p><h4>Info Item</h4></p>
+        <br>
+          <table class="table table-bordered table-striped data-table" >
+            <thead>
+              <td>#</td>
+              <td>Kode Stock</td>
+              <td>Nama Stock</td>
+              <td>Qty</td>
+              <td>Harga</td>
+            </thead>
+            <tbody id="loadDetail">
+              
+            </tbody>
+          </table>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- End models -->
 <?php
     require_once(APPPATH."views/part/footer.php");
@@ -173,6 +196,8 @@
       });
     });
     $( document ).ready(function() {
+      $('#ModalHeaderMutasi').modal('show');
+      $('#ModalHeaderMutasi').modal('toggle');
         var datetime = new Date();
         var month;
         var day;
@@ -199,6 +224,27 @@
         // $('body').removeClass( "modal-open" );
         // $('#ModalAddStock').data('modal', null);
         // $(".modal-body").empty();
+    });
+    $('#SeeDetail').on('show', function () {
+           $(this).find('.modal-body').css({
+                  width:'auto', //probably not needed
+                  height:'auto', //probably not needed 
+                  'max-height':'100%'
+           });
+    });
+    $('#ModalDetailMutasi').on('show', function () {
+           $(this).find('.modal-body').css({
+                  width:'auto', //probably not needed
+                  height:'auto', //probably not needed 
+                  'max-height':'100%'
+           });
+    });
+    $('#ModalHeaderMutasi').on('show', function () {
+           $(this).find('.modal-body').css({
+                  width:'auto', //probably not needed
+                  height:'auto', //probably not needed 
+                  'max-height':'100%'
+           });
     });
     $('#ModalDetailMutasi').on('hidden.bs.modal', function () {
       // location.reload();
@@ -370,7 +416,7 @@
         var i;
         for (i = 0; i < response.data.length; i++) {
           html += '<tr>' +
-                  '<td width = "20%"> '+
+                  '<td width = "15%"> '+
                   '<button class="btn btn-mini btn-success" id ="" onClick = "AddDetail('+ response.data[i].id + ')"><i class="icon-plus-sign" data-toggle="tooltip" title="Add Detail Mutasi"></i></button>' +
                   '<button class="btn btn-mini btn-warning" id ="" onClick = "SeeDetail('+ response.data[i].id + ')"><i class="icon-eye-open" data-toggle="tooltip" title="Lihat Detail '+response.data[i].jmlitem+' - Items"> '+response.data[i].jmlitem+' - items</i></button>' +
                   '<button class="btn btn-mini btn-danger" id ="" onClick = "cancel('+ response.data[i].id + ')"><i class="icon-trash" data-toggle="tooltip" title="Cancel Mutasi"></i></button></td>' +
@@ -397,7 +443,181 @@
     $('#hrgperpcs').val(0);
   }
   function SeeDetail(id) {
-    // body...
+    $.ajax({
+      type    :'post',
+      url     : '<?=base_url()?>MutasiStockController/GetMutasiStockDetail',
+      data    : {id:id},
+      dataType: 'json',
+      success : function (response) {
+        if(response.success == true){
+          var html = '';
+          var i;
+          for (i = 0; i < response.data.length; i++) {
+            html += '<tr>' +
+                    '<td> '+
+                    '<button class="btn btn-mini btn-danger" id ="" onClick = "canceldetail('+ response.data[i].id + ')"><i class="icon-trash" data-toggle="tooltip" title="Cancel Mutasi"></i></button></td>' +
+                    '<td>' + response.data[i].kodestok + '</td>' +
+                    '<td>' + response.data[i].namastok + '</td>' +
+                    '<td>' + response.data[i].qty + '</td>' +
+                    '<td>' + formatNumber(response.data[i].harga) + '</td>' +
+                    '</tr>';
+          }
+          // alert(html);
+          $('#loadDetail').html(html);
+          $('#SeeDetail').modal('show');
+        }
+        else{
+          Swal.fire({
+            type: 'error',
+            title: 'Woops...',
+            text: 'Tidak ada data detail',
+            // footer: '<a href>Why do I have this issue?</a>'
+          });
+        }
+      }
+    });
+  }
+  function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
+  function cancel(id) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Anda akan Cancel mutasi ini, semua item akan otomatis tercancel",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        var tipe = 'All';
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>MutasiStockController/Cancel',
+          data    : {id:id,tipe:tipe},
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              // $('#SeeDetail').modal('toggle');
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success',
+              ).then((result)=> {
+                var fromdate = $('#fromdate').val();
+                var todate = $('#todate').val();
+                GetMutasi(fromdate,todate);
+              });
+            }
+            else{
+              if(response.message == '100-01'){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 100-1 Woops...',
+                  text: 'Gagal Update Mutasi stok Detail',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+              else if(response.message == '100-2'){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 100-2 Woops...',
+                  text: 'Gagal Update Mutasi stok Header',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+              else if(response.message == '500-1'){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 500-1 Woops...',
+                  text: 'Invalid type',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+              else{
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 500 Woops...',
+                  text: 'Undefined Error',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+            }
+          }
+        });
+      }
+    });
+  }
+  function canceldetail(id) {
+    $('#SeeDetail').modal('toggle');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Anda akan Cancel data ini!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        var tipe = 'item';
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>MutasiStockController/Cancel',
+          data    : {id:id,tipe:tipe},
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              // $('#SeeDetail').modal('toggle');
+              Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success',
+              ).then((result)=> {
+                var fromdate = $('#fromdate').val();
+                var todate = $('#todate').val();
+                GetMutasi(fromdate,todate);
+              });
+            }
+            else{
+              if(response.message == '100-01'){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 100-1 Woops...',
+                  text: 'Gagal Update Mutasi stok Detail',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+              else if(response.message == '100-2'){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 100-2 Woops...',
+                  text: 'Gagal Update Mutasi stok Header',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+              else if(response.message == '500-1'){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 500-1 Woops...',
+                  text: 'Invalid type',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+              else{
+                Swal.fire({
+                  type: 'error',
+                  title: 'Error Code 500 Woops...',
+                  text: 'Undefined Error',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                });
+              }
+            }
+          }
+        });
+      }
+    });
   }
 </script>
 <!-- <div class="row-fluid">

@@ -177,7 +177,7 @@
             Obj.data += '&csrf_token='+parts.pop().split(";").shift();
         }
     });
-
+    
     $('#addStk').click(function () {
       form_mode = 'add';
       $('#ModalAddStock').modal('show');
