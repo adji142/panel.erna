@@ -17,6 +17,11 @@ class Id extends CI_Controller
 		$this->load->model('ModelsXPDC');
 		$this->load->model('ModelsStock');
 	}
+	function test()
+	{
+		$this->load->view('test');
+	}
+
 	function Index()
 	{
 		$this->load->view('Login');
@@ -44,5 +49,10 @@ class Id extends CI_Controller
 	function MutasiStock()
 	{
 		$this->load->view('MutasiStock');
+	}
+	// site setting
+	function siteBanner()
+	{
+		$this->load->view('WebSetBanner');
 	}
 }

@@ -28,4 +28,8 @@ class ModelsExecuteMaster extends CI_Model
 		$this->db->like($where,'both');
 		return $this->db->get($table);
 	}
+	function GetData($table)
+	{
+		return $this->db->get($table);
+	}
 }
