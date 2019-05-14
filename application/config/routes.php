@@ -64,3 +64,6 @@ $route['mutasistok'] = 'Id/MutasiStock';
 
 // Site setting
 $route['banner'] = 'Id/siteBanner';
+$route['categories'] = 'Id/siteCategories';
+$route['about'] = 'Id/siteAbout';
+$route['info'] = 'Id/siteInfo';

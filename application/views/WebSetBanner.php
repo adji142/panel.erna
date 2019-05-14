@@ -3,6 +3,42 @@
     require_once(APPPATH."views/part/sidebar.php");
 ?>
 <!--main-container-part-->
+<style type="text/css">
+.circular--square {
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
+}
+.circular--portrait {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.circular--portrait img {
+  width: 100%;
+  height: auto;
+}
+.circular--landscape {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.circular--landscape img {
+  width: auto;
+  height: 100%;
+  margin-left: -50px;
+}
+/*table{table-layout:fixed;}*/
+td{white-space:nowrap;}
+</style>
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
@@ -36,14 +72,27 @@
                       <?php
                         $Recordset = $this->ModelsExecuteMaster->FindData(array('tglpasif' => NULL),'sitebanner');
                         if($Recordset->num_rows() > 0){
+                          // header("Content-type: image/png");
+                          $classimg = '';
                           foreach ($Recordset->result() as $key) {
+                            list($width, $height) = getimagesize($key->image);
+                            if ($width > $height) {
+                                // Landscape
+                              $classimg = 'circular--landscape';
+                            } else {
+                                // Portrait or Square
+                              $classimg = 'circular--portrait';
+                            }
                             echo "<tr class='gradeX'>";
                             echo "<td width = '5%'>
+                              <button href='#' class='btn btn-mini btn-info ViewImage' id = '".$key->id."'>
+                                <i class='icon-eye-open' data-toggle='tooltip' title='Set Pasif'></i>
+                              </button>
                               <button href='#' class='btn btn-mini btn-danger set_passif' id = '".$key->id."'>
                                 <i class='icon-trash' data-toggle='tooltip' title='Set Pasif'></i>
                               </button>
                             </td>";
-                            echo "<td></td>";
+                            echo "<td width = '20%'><img src = '".$key->image."' width = 50%/></td>";
                             echo "<td>".$key->hightlight."</td>";
                             echo "<td>".$key->title."</td>";
                             echo "<td>".$key->subtitle."</td>";
@@ -120,6 +169,31 @@
   </div>
 </div>
 
+<div class="modal fade" id="ModalViewImage" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" style="width: auto; height: auto; ">
+    <div class="modal-content">  
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <center>
+          <img src="" id="ViewImageBanner">
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="load" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" style="width: auto; height: auto; ">
+    <div class="modal-content">  
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <center>
+          <img src="https://i.stack.imgur.com/FhHRx.gif">
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- End models -->
 </div>
 <?php
@@ -152,7 +226,13 @@
         readURL(this);
         encodeImagetoBase64(this);
     });
-
+    $('#ModalHeaderMutasi').on('show', function () {
+       $(this).find('.modal-body').css({
+              width:'auto', //probably not needed
+              height:'auto', //probably not needed 
+              'max-height':'100%'
+       });
+    });
     $('#FrmAddBanner').submit(function(e) {
       // alert(image);
       e.preventDefault();
@@ -223,6 +303,85 @@
             }
           }
         });
+    });
+    $('.ViewImage').click(function () {
+      var id = $(this).attr("id");
+      
+      $('#load').modal('show');
+        $.ajax({
+        type    :'post',
+        url     : '<?=base_url()?>SiteSettingController/ViewBanner',
+        data    : {id:id},
+        dataType: 'json',
+        success:function (response) {
+          if(response.success == true){
+            $('#load').modal('toggle');
+            $.each(response.data,function (k,v) {
+              $('#ViewImageBanner').attr('src', v.image);
+            });
+            $('#ModalViewImage').modal('show');
+          }
+          else{
+            if(response.message = '404-01'){
+              $('#load').modal('toggle');
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Tidak Ditemukan',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+          }
+        }
+      });
+    });
+
+    $('.set_passif').click(function () {
+      var id = $(this).attr("id");
+      var table = 'sitebanner';
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "Anda Akan delete Banner ini ?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          $.ajax({
+            type    :'post',
+            url     : '<?=base_url()?>SiteSettingController/SetPassif',
+            data    : {id:id,table:table},
+            dataType: 'json',
+            success:function (response) {
+              if(response.success == true){
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                ).then((result)=>{
+                    location.reload();
+                  });;
+              }
+              else{
+                if(response.message = '500-01'){
+                  Swal.fire({
+                    type: 'error',
+                    title: 'Woops...',
+                    text: 'Data Gagal di update',
+                    // footer: '<a href>Why do I have this issue?</a>'
+                  }).then((result)=>{
+                    location.reload();
+                  });
+                }
+              }
+            }
+          });
+        }
+      })
     });
   });
   function readURL(input) {

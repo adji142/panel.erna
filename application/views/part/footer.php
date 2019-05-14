@@ -27,7 +27,8 @@
 <!-- <script src="<?php echo base_url();?>Assets/js/matrix.popover.js"></script>  -->
 <script src="<?php echo base_url();?>Assets/js/jquery.dataTables.min.js"></script>  <!--end-Footer-part-->
 <script src="<?php echo base_url();?>Assets/js/matrix.tables.js"></script>  <!--end-Footer-part-->
-
+<script src="<?php echo base_url();?>Assets/js/wysihtml5-0.3.0.js"></script> 
+<script src="<?php echo base_url();?>Assets/js/bootstrap-wysihtml5.js"></script> 
 <!-- datatable -->
 <!-- <script src="<?php echo base_url();?>Assets/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>Assets/datatables.net/js/dataTables.buttons.min.js"></script>

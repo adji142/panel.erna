@@ -55,4 +55,16 @@ class Id extends CI_Controller
 	{
 		$this->load->view('WebSetBanner');
 	}
+	function siteCategories()
+	{
+		$this->load->view('WebSetCategories');
+	}
+	function siteAbout()
+	{
+		$this->load->view('WebSetAbout');
+	}
+	function siteInfo()
+	{
+		$this->load->view('WebSetInfo');
+	}
 }

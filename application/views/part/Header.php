@@ -20,7 +20,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="<?php echo base_url();?>Assets/css/uniform.css" />
 <link rel="stylesheet" href="<?php echo base_url();?>Assets/css/select2.css" />
-
+<link rel="stylesheet" href="<?php echo base_url();?>Assets/css/bootstrap-wysihtml5.css" />
 <!-- datatabble -->
 <!-- <link rel="stylesheet" href="<?php echo base_url();?>Assets/datatables.net-bs/css/dataTables.bootstrap.min.css"> -->
 <style type="text/css">
