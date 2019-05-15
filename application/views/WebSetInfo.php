@@ -87,6 +87,7 @@
           <div id="tab2" class="tab-pane">
             <h4>TERMS & AGREEMENTS SETTING</h4>
             <form id="FrmaddinfoTerm" enctype='application/json'>
+              <input type="hidden" id="idterm" name="idterm">
               <div class="control-group">
                 <label class="control-label"></label>
                 <div class="controls">
@@ -99,6 +100,7 @@
           <div id="tab3" class="tab-pane">
             <h4>PRIVACY POLICY SETTING</h4>
             <form id="Frmaddinfopolice" enctype='application/json'>
+              <input type="hidden" id="idplc" name="idplc">
               <div class="control-group">
                 <label class="control-label"></label>
                 <div class="controls">
@@ -111,6 +113,7 @@
           <div id="tab4" class="tab-pane">
             <h4>SHIPPING POLICY SETTING</h4>
             <form id="Frmaddinfoshiping" enctype='application/json'>
+              <input type="hidden" id="idship" name="idship">
               <div class="control-group">
                 <label class="control-label"></label>
                 <div class="controls">
@@ -123,6 +126,7 @@
           <div id="tab5" class="tab-pane">
             <h4>REFUND POLICY SETTING</h4>
             <form id="Frmaddinforefund" enctype='application/json'>
+              <input type="hidden" id="idrfn" name="idrfn">
               <div class="control-group">
                 <label class="control-label"></label>
                 <div class="controls">
@@ -135,6 +139,7 @@
           <div id="tab6" class="tab-pane">
             <h4>RETURNS & EXCHANGE POLICY SETTING</h4>
             <form id="Frmaddinforetur" enctype='application/json'>
+              <input type="hidden" id="idrtr" name="idrtr">
               <div class="control-group">
                 <label class="control-label"></label>
                 <div class="controls">
@@ -173,6 +178,7 @@
       $("#cat tr").css('cursor', 'pointer');
       $(".warning").text('Tambah FAQ');
       $('#passifdate').attr('readonly',true);
+      LoadData();
     });
 
     $('.textarea_editor').wysihtml5();
@@ -180,7 +186,7 @@
     $('.textarea_editor_Police').wysihtml5();
     $('.textarea_editor_shiping').wysihtml5();
     $('.textarea_editor_refund').wysihtml5();
-    $('.textarea_editor_return').wysihtml5();
+    $('.textarea_editor_retur').wysihtml5();
     
     $('#cat ').on('click','tr',function () {
       // var table = $('#cat').DataTable();
@@ -292,6 +298,372 @@
           
         }
     });
+
+    $('#FrmaddinfoTerm').submit(function (e) {
+      $('#btn_Saveterm').text('Tunggu Sebentar.....');
+      $('#btn_Saveterm').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      var info = $('#term').val();
+      var field = 'term';
+      var id = $('#idterm').val();
+
+      if( id == ''){
+        // Add
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/InfSave',
+          data    : {info:info,field:field},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saveterm').text('Save');
+              $('#btn_Saveterm').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else{
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/infEdit',
+          data    : {info:info,field:field,id:id},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saveterm').text('Save');
+              $('#btn_Saveterm').attr('disabled',false);
+            }
+          }
+        });
+      }
+    });
+
+    $('#Frmaddinfopolice').submit(function (e) {
+      $('#btn_Saveplc').text('Tunggu Sebentar.....');
+      $('#btn_Saveplc').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      var info = $('#plc').val();
+      var field = 'plc';
+      var id = $('#idplc').val();
+
+      if( id == ''){
+        // Add
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/InfSave',
+          data    : {info:info,field:field},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saveplc').text('Save');
+              $('#btn_Saveplc').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else{
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/infEdit',
+          data    : {info:info,field:field,id:id},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saveplc').text('Save');
+              $('#btn_Saveplc').attr('disabled',false);
+            }
+          }
+        });
+      }
+    });
+
+    $('#Frmaddinfoshiping').submit(function (e) {
+      $('#btn_Saveship').text('Tunggu Sebentar.....');
+      $('#btn_Saveship').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      var info = $('#ship').val();
+      var field = 'ship';
+      var id = $('#idship').val();
+
+      if( id == ''){
+        // Add
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/InfSave',
+          data    : {info:info,field:field},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saveship').text('Save');
+              $('#btn_Saveship').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else{
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/infEdit',
+          data    : {info:info,field:field,id:id},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saveship').text('Save');
+              $('#btn_Saveship').attr('disabled',false);
+            }
+          }
+        });
+      }
+    });
+
+    $('#Frmaddinforefund').submit(function (e) {
+      $('#btn_Saverfn').text('Tunggu Sebentar.....');
+      $('#btn_Saverfn').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      var info = $('#rfn').val();
+      var field = 'refund';
+      var id = $('#idrfn').val();
+
+      if( id == ''){
+        // Add
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/InfSave',
+          data    : {info:info,field:field},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saverfn').text('Save');
+              $('#btn_Saverfn').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else{
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/infEdit',
+          data    : {info:info,field:field,id:id},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saverfn').text('Save');
+              $('#btn_Saverfn').attr('disabled',false);
+            }
+          }
+        });
+      }
+    });
+    
+    $('#Frmaddinforetur').submit(function (e) {
+      $('#btn_Savertr').text('Tunggu Sebentar.....');
+      $('#btn_Savertr').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      var info = $('#rtr').val();
+      var field = 'return';
+      var id = $('#idrtr').val();
+
+      if( id == ''){
+        // Add
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/InfSave',
+          data    : {info:info,field:field},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Savertr').text('Save');
+              $('#btn_Savertr').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else{
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/infEdit',
+          data    : {info:info,field:field,id:id},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Savertr').text('Save');
+              $('#btn_Savertr').attr('disabled',false);
+            }
+          }
+        });
+      }
+    });
+
   });
   function Reset() {
     form_mode = 'add';
@@ -300,6 +672,45 @@
     $("#btn_SaveCat").text('Save');
     $('#ask').val('');
     $('#answ').val('');
+  }
+  function LoadData() {
+    var id = 1;
+    $.ajax({
+        type    :'post',
+        url     : '<?=base_url()?>SiteSettingController/ViewInf',
+        data    : {id:id},
+        dataType: 'json',
+        success:function (response) {
+          if(response.success == true){
+            $.each(response.data,function (k,v) {
+              $('#idplc').val(v.id);
+              $('#idship').val(v.id);
+              $('#idrfn').val(v.id);
+              $('#idrtr').val(v.id);
+              $('#idterm').val(v.id);
+              // $('#answ').val(v.answer);
+              $('#plc').data('wysihtml5').editor.setValue(v.plc);
+              $('#ship').data('wysihtml5').editor.setValue(v.ship);
+              $('#rfn').data('wysihtml5').editor.setValue(v.refund);
+              $('#rtr').data('wysihtml5').editor.setValue(v.return);
+              $('#term').data('wysihtml5').editor.setValue(v.term);
+            });
+          }
+          else{
+            $('#idplc').val('');
+            $('#idship').val('');
+            $('#idrfn').val('');
+            $('#idrtr').val('');
+            $('#idterm').val('');
+            // $('#answ').val(v.answer);
+            $('#plc').data('wysihtml5').editor.setValue('');
+            $('#ship').data('wysihtml5').editor.setValue('');
+            $('#rfn').data('wysihtml5').editor.setValue('');
+            $('#rtr').data('wysihtml5').editor.setValue('');
+            $('#term').data('wysihtml5').editor.setValue('');
+          }
+        }
+      });
   }
 </script>
 <!-- <div class="row-fluid">

@@ -408,4 +408,96 @@ class SiteSettingController extends CI_Controller
 		echo json_encode($data);
 	}
 
+	function ViewInf()
+	{
+		$data = array('success' => false ,'message'=>array(),'data'=>array(),'count' => 0);
+		$id = $this->input->post('id');	
+		$where = array(
+				'id' => $id
+			);
+		try {
+			$exec = $this->ModelsExecuteMaster->FindData($where,'siteinformation');
+			if($exec->num_rows()>0){
+				$data['success'] = true;
+				$data['data'] = $exec->result();
+				$data['count'] =$exec->num_rows(); 
+			}
+			else{
+
+				$InsertData = array(
+					'errorcode'		=> '500-01',
+					'errordesc'		=> 'Server Error',
+					'stacktrace'	=> 'SiteSettingController line 428',
+				);
+				$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+				$data['message'] = '404-01';
+			}
+		} catch (Exception $e) {
+			$InsertData = array(
+				'errorcode'		=> '500',
+				'errordesc'		=> 'Exception Server Error',
+				'stacktrace'	=> $e->getMessage(),
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+		}
+		echo json_encode($data);
+	}
+
+	function InfSave()
+	{
+		$data = array('success' => false ,'message'=>array());
+
+		$info = $this->input->post('info');
+		$field = $this->input->post('field');
+		// $find_catname = $this->ModelsExecuteMaster->FindData(array('id'=>$parent),'categories');
+
+		$data = array(
+			$field		=> $info,
+		);
+		$exec = $this->ModelsExecuteMaster->ExecInsert($data,'siteinformation');
+
+		if($exec){
+			$data['success'] = true;
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'SiteSettingController line 466',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '500-01';
+		}
+		echo json_encode($data);
+	}
+
+	function infEdit()
+	{
+		$data = array('success' => false ,'message'=>array());
+
+		$id = $this->input->post('id');
+		$info = $this->input->post('info');
+		$field = $this->input->post('field');
+		// $find_catname = $this->ModelsExecuteMaster->FindData(array('id'=>$parent),'categories');
+
+		$data = array(
+			$field		=> $info
+		);
+		$exec = $this->ModelsExecuteMaster->ExecUpdate($data,array('id'=>$id),'siteinformation');
+
+		if($exec){
+			$data['success'] = true;
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'SiteSettingController line 409',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '500-01';
+		}
+		echo json_encode($data);
+	}
+
 }
