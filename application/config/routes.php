@@ -67,3 +67,4 @@ $route['banner'] = 'Id/siteBanner';
 $route['categories'] = 'Id/siteCategories';
 $route['about'] = 'Id/siteAbout';
 $route['info'] = 'Id/siteInfo';
+$route['product'] = 'Id/PostItem';

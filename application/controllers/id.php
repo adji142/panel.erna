@@ -67,4 +67,8 @@ class Id extends CI_Controller
 	{
 		$this->load->view('WebSetInfo');
 	}
+	function PostItem()
+	{
+		$this->load->view('PostProduct');
+	}
 }
