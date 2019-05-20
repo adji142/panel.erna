@@ -17,7 +17,7 @@
   <div id="content-header">
     <div id="breadcrumb"> 
         <a href="<?php echo base_url();?>" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
-        <a href="#" class="tip-buttom"> Mutasi Stock</a>
+        <a href="#" class="tip-buttom"> Product</a>
 
     </div>
     <!-- <form id="search" enctype='application/json'> -->
@@ -89,26 +89,44 @@
   });
 
   foto_upload.on("addedfile",function (file) {
+    // alert('1');
     var _this=this,
     reader = new FileReader();
     reader.onload = function(event) {
       base64 = event.target.result;
+      // $('#dropzone--dropzoneThumbnail').val(base64);
       _this.processQueue();
     };
+    // alert(_this);
     reader.readAsDataURL(file);
   });
   foto_upload.on("sending",function(a,b,c){
+    // alert('2');
     var value = "; " + document.cookie;
     var parts = value.split("; csrf_cookie_token=");
     if(parts.length == 2){
       c.append("csrf_token",parts.pop().split(";").shift());
     }
-    c.append("base64", base64);
+
+    console.log(base64);
+    // var _this = this,
+    // render = new FileReader();
+    // // console.log(render.result);
+    // render.onload = function (event) {
+    //   render.result = event.target.result;
+    //   // _this.processQueue();
+    //   // console.log(_this);
+    //   // c.append("base64", base64);
+    // };
+    // console.log(render);
+    // // c.append("base64", _this.base64);
+    // render.readAsDataURL(a);
   });
 
-  foto_upload.on("success",function (file, response) {
-    console.log('success:', response);
-  });
+  // foto_upload.on("success",function (file, response) {
+  //   // $('#dropzone--dropzoneThumbnail').val('');
+  //   console.log('success:', response);
+  // });
 
   $(function () {
     var form_mode = '';
