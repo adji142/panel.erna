@@ -37,7 +37,6 @@
              <h3>Click or drag and drop your image hire (Max. 5 photos)</h3>
             </div>
           </div>
-          <input type="text" name="thumbnail" id="dropzone--dropzoneThumbnail" class="form-control" placeholder="BASE64 Blob Goes Here..." />
         </div>
       </div>
 
@@ -78,7 +77,7 @@
   Dropzone.autoDiscover = false;
   var base64 = '';
   var foto_upload= new Dropzone(".dropzone",{
-    url: '<?=base_url()?>ProductController/PostImage',
+    url: '<?=base_url()?>ProductController/fakeUrl',
     maxFiles:5,
     maxFilesize: 2,
     method:"post",
@@ -86,78 +85,63 @@
     paramName:"userfile",
     dictInvalidFileType:"Type file ini tidak dizinkan",
     addRemoveLinks:true,
-    accept:function(file,done){
-      var reader = new FileReader();
-      reader.onload = handleReaderLoad;
-      reader.readAsDataURL(file);
-
-      function handleReaderLoad(e){
-        var filePayload = e.target.result;
-        var img = document.getElementById('data-dz-thumbnail');
-        img.src = filePayload;
-        filePayload = resizeWithCanvas(img);
-        img.src = filePayload;
-      }
-    }
-    // init :function(){
-    //   this.on("sending",function(file,xhr,data){
-    //     var value = "; " + document.cookie;
-    //     var parts = value.split("; csrf_cookie_token=");
-    //     if(parts.length == 2){
-    //       data.append("csrf_token",parts.pop().split(";").shift());
-    //     }
-
-    //     var _this = this,
-    //     render = new FileReader();
-    //     // console.log(render.result);
-    //     render.onload = function (event) {
-    //       base64 = event.target.result;
-    //       _this.processQueue();
-    //       // console.log(_this);
-    //       // c.append("base64", base64);
-    //     };
-    //     // console.log(base64);
-    //     data.append("base64", base64);
-    //     render.readAsDataURL(file);
-    //   });
-    // },
   });
 
-  // foto_upload.on("addedfile",function (file) {
-  //   // alert('1');
-  //   var _this=this,
-  //   reader = new FileReader();
-  //   reader.onload = function(event) {
-  //     base64 = event.target.result;
-  //     // $('#dropzone--dropzoneThumbnail').val(base64);
-  //     _this.processQueue();
-  //   };
-  //   // alert(_this);
-  //   reader.readAsDataURL(file);
-  // });
-  // foto_upload.on("sending",function(a,b,c){
-  //   // alert('2');
-  //   var value = "; " + document.cookie;
-  //   var parts = value.split("; csrf_cookie_token=");
-  //   if(parts.length == 2){
-  //     c.append("csrf_token",parts.pop().split(";").shift());
-  //   }
-
-  //   console.log(base64);
-  //   // var _this = this,
-  //   // render = new FileReader();
-  //   // // console.log(render.result);
-  //   // render.onload = function (event) {
-  //   //   render.result = event.target.result;
-  //   //   // _this.processQueue();
-  //   //   // console.log(_this);
-  //   //   // c.append("base64", base64);
-  //   // };
-  //   // console.log(render);
-  //   // // c.append("base64", _this.base64);
-  //   // render.readAsDataURL(a);
-  // });
-
+  foto_upload.on("addedfile",function (file) {
+    // alert('1');
+    file.token = Math.random();
+    var _this=this,
+    reader = new FileReader();
+    reader.onload = function(event) {
+      base64 = event.target.result;
+      PostImage(base64,file.token);
+      // $('#dropzone--dropzoneThumbnail').val(base64);
+      _this.processQueue();
+    };
+    // alert(_this);
+    reader.readAsDataURL(file);
+  });
+  foto_upload.on("sending",function(a,b,c){
+    // alert('2');
+    var value = "; " + document.cookie;
+    var parts = value.split("; csrf_cookie_token=");
+    if(parts.length == 2){
+      c.append("csrf_token",parts.pop().split(";").shift());
+    }
+  });
+  foto_upload.on("removedfile",function (a) {
+    var token = a.token;
+    $.ajax({
+      type    : 'post',
+      url     : '<?=base_url()?>ProductController/DelImage',
+      data    : {token:token},
+      dataType: 'json',
+      success:function (response) {
+        if(response.success == true){
+          console.log("deleted");
+        }
+        else{
+          console.log("something wrong");
+        }
+      }
+    });
+  })
+  function PostImage(file_image,image_token) {
+    $.ajax({
+      type    : 'post',
+      url     : '<?=base_url()?>ProductController/PostImage',
+      data    : {file_image:file_image,image_token:image_token},
+      dataType: 'json',
+      success:function (response) {
+        if(response.success == true){
+          console.log("updated");
+        }
+        else{
+          console.log("something wrong");
+        }
+      }
+    })
+  }
   // foto_upload.on("success",function (file, response) {
   //   // $('#dropzone--dropzoneThumbnail').val('');
   //   console.log('success:', response);
@@ -187,7 +171,7 @@
       });
     });
     $( document ).ready(function() {
-      
+
     });
   });
   function resizeWithCanvas(img) {

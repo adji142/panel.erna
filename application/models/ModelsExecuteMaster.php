@@ -32,4 +32,21 @@ class ModelsExecuteMaster extends CI_Model
 	{
 		return $this->db->get($table);
 	}
+	function GetMax($table,$field,$where)
+	{
+		// 1 : alredy, 0 : first input
+		$this->db->select_max('id');
+		if($field != '' && $where != '' ){
+			$this->db->select('1 as status');
+			$this->db->where($field,$where);
+		}
+		else{
+			$this->db->select('0 as status');
+		}
+		return $this->db->get($table);
+	}
+	function DeleteData($where,$table)
+	{
+		return $this->db->delete($table,$where);
+	}
 }
