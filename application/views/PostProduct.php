@@ -1,6 +1,7 @@
 <?php
     require_once(APPPATH."views/part/Header.php");
     require_once(APPPATH."views/part/sidebar.php");
+    $query = $this->ModelsExecuteMaster->FindData(array('tglpasif'=>null),'masterstok');
 ?>
 <link href="<?php echo base_url()?>Assets/dropone/dropzone.min.css" rel="stylesheet">
 <script src="<?php echo base_url()?>Assets/dropone/dropzone.min.js"></script>
@@ -37,6 +38,34 @@
              <h3>Click or drag and drop your image hire (Max. 5 photos)</h3>
             </div>
           </div>
+          <br>
+          <form id="FrmAddProduct" enctype='application/json'>
+            <div class="control-group">
+              <label class="control-label">Title</label>
+              <div class="controls">
+                <input type="text" placeholder="Title" id="title" name="title" required="" class="span12">
+                <input type="hidden" id="idprod" name="idprod" class="span6">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <select id="stok" name="stok">
+                  <option value="">Pilih Stock</option>
+                  <?php
+                    foreach ($query->result() as $key) {
+                      echo "<option value='".$key->id."'>".$key->kodestok." | ".$key->namastok."</option>";
+                    }
+                  ?>
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label">Qty Ready</label>
+              <div class="controls">
+                <input type="text" placeholder="Qty Ready" id="qty" name="qty" required="" class="span12" readonly="">
+              </div>
+            </div>
+          </form>
         </div>
       </div>
 
