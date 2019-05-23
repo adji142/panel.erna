@@ -69,4 +69,30 @@ class ProductController extends CI_Controller
 		}
 		echo json_encode($data);
 	}
+	function Getsubcategori()
+	{
+		$data = array('success' => false ,'message'=>array(),'data' =>array());
+		$id = $this->input->post('idcat');
+		$where = array(
+			'parent'			=> $id,
+		);
+
+		$exec = $this->ModelsExecuteMaster->FindData($where,'categories');
+		if($exec){
+			$data['success'] = true;
+			if($id <> 0){
+				$data['data'] =$exec->result();
+			}
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'ProductController line 89',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '404-01';
+		}
+		echo json_encode($data);
+	}
 }

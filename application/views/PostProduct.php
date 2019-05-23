@@ -2,6 +2,7 @@
     require_once(APPPATH."views/part/Header.php");
     require_once(APPPATH."views/part/sidebar.php");
     $query = $this->ModelsExecuteMaster->FindData(array('tglpasif'=>null),'masterstok');
+    $query_categories = $this->ModelsExecuteMaster->FindData(array('tglpasif'=>null,'parent' => 0),'categories');
 ?>
 <link href="<?php echo base_url()?>Assets/dropone/dropzone.min.css" rel="stylesheet">
 <script src="<?php echo base_url()?>Assets/dropone/dropzone.min.js"></script>
@@ -41,7 +42,7 @@
           <br>
           <form id="FrmAddProduct" enctype='application/json'>
             <div class="control-group">
-              <label class="control-label">Title</label>
+              <!-- <label class="control-label">Title</label> -->
               <div class="controls">
                 <input type="text" placeholder="Title" id="title" name="title" required="" class="span12">
                 <input type="hidden" id="idprod" name="idprod" class="span6">
@@ -49,8 +50,29 @@
             </div>
             <div class="control-group">
               <div class="controls">
-                <select id="stok" name="stok">
-                  <option value="">Pilih Stock</option>
+                <textarea class="textarea_editor span11" rows="6" placeholder="Deskripsi Product" id="desc" name="desc"></textarea>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls controls-row">
+                <select id="categori" name="categori" class="span6 m-wrap">
+                  <option value="0" selected="">Pilih Kategori</option>
+                  <?php
+                    foreach ($query_categories->result() as $key) {
+                      echo "<option value='".$key->id."'>".$key->category."</option>";
+                    }
+                  ?>
+                </select>
+                <select id="subcategori" name="subcategori" class="span6 m-wrap">
+                  <option value="0" selected="">Pilih Sub Kategori</option>
+                    
+                </select>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls controls-row">
+                <select id="stok" name="stok" class="span12 m-wrap">
+                  <option value="0" selected="">Pilih Stock</option>
                   <?php
                     foreach ($query->result() as $key) {
                       echo "<option value='".$key->id."'>".$key->kodestok." | ".$key->namastok."</option>";
@@ -60,9 +82,16 @@
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label">Qty Ready</label>
-              <div class="controls">
-                <input type="text" placeholder="Qty Ready" id="qty" name="qty" required="" class="span12" readonly="">
+              <div class="controls controls-row">
+                <label class="control-label m-wrap">Qty Ready</label>
+                <input type="text" placeholder="Qty Ready" id="qty" name="qty" required="" class="span6 m-wrap">
+                <input type="text" placeholder="Harga Jual Perpcs" id="hpp" name="hpp" required="" class="span6 m-wrap">
+              </div>
+            </div>
+            <div class="control-group">
+              <div id="btncancel">
+                <button class="btn btn-primary" id="btn_Saveprod">Save</button>
+                <button class="btn btn-default" id ="cancel" type="reset">Cancel</button>
               </div>
             </div>
           </form>
@@ -169,7 +198,7 @@
           console.log("something wrong");
         }
       }
-    })
+    });
   }
   // foto_upload.on("success",function (file, response) {
   //   // $('#dropzone--dropzoneThumbnail').val('');
@@ -199,7 +228,40 @@
         ;
       });
     });
+    $('.textarea_editor').wysihtml5();
+
     $( document ).ready(function() {
+      form_mode = 'add';
+      $("#cancel").remove();
+    });
+    $('#categori').on('change',function () {
+      var idcat = $('#categori').val();
+        $.ajax({
+          type    : 'post',
+          url     : '<?=base_url()?>ProductController/Getsubcategori',
+          data    : {idcat:idcat},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              $('#subcategori').children('option:not(:first)').remove();
+              $.each(response.data,function (i,v) {
+                // $('.'+v.id+'').remove();
+                $('#subcategori').append($('<option>',{
+                  value   : v.id,
+                  text    : v.category,
+                  class   : v.id
+                }));
+              });
+
+              // subcategori
+              // console.log(html);
+              // $('#subcat').html('html');
+            }
+            else{
+              console.log("something wrong");
+            }
+          }
+        });
 
     });
   });
