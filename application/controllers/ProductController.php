@@ -28,17 +28,18 @@ class ProductController extends CI_Controller
 
 		$idpost;
 
-		if($status == "0"){
+		if($GetMax->id == "0"){
 			$idpost = 1;
 		}
 		else{
-			$idpost += 1;	
+			$idpost = $GetMax->id+1;	
 		}
 
 		$datainsert = array(
 			'postid'	=> $idpost,
 			'image'		=> $file_image,
-			'imagetoken'=> $image_token
+			'imagetoken'=> $image_token,
+			'used'		=> 0,
 		);
 
 		$exec = $this->ModelsExecuteMaster->ExecInsert($datainsert,'imagetable');
@@ -94,5 +95,133 @@ class ProductController extends CI_Controller
 			$data['message'] = '404-01';
 		}
 		echo json_encode($data);
+	}
+	function GetStock()
+	{
+		$data = array('success' => false ,'message'=>array(),'data' =>array());
+		$id = $this->input->post('idstok');
+
+		$exec = $this->ModelsExecuteMaster->GetSaldoStock($id);
+		if($exec){
+			$data['success'] = true;
+			$data['data'] =$exec->result();
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'ProductController line 112',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '404-01';
+		}
+		echo json_encode($data);
+	}
+	function AddProduct()
+	{
+		$data = array('success' => false ,'message'=>array());
+
+		$allownextstep = true;
+
+		$title = $this->input->post('title');
+		$desc = $this->input->post('desc');
+		$categori = $this->input->post('categori');
+		$subcategori = $this->input->post('subcategori');
+		$stok = $this->input->post('stok');
+		$qty = $this->input->post('qty');
+		$hpp = $this->input->post('hpp');
+		$promomember = $this->input->post('promomember');
+		// $promo = $this->input->post('promo');
+		$realstock = $this->input->post('realstock');
+
+		$flag_member = 0;
+		
+		if($realstock < $qty){
+			$data['message'] = 'E-01'; // qty > stok
+			$allownextstep = false;
+		}
+
+		if($promomember == '1'){
+			$flag_member = 1;
+		}
+
+		if ($allownextstep == true) {
+			$insert = array(
+				'stockid'		=> $stok,
+				'categories'	=> $subcategori,
+				'price'			=> $hpp,
+				'tittle'		=> $title,
+				'description'	=> $desc,
+				'tglaktif'		=> date("Y-m-d"),
+				'promomember'	=> $flag_member,
+				'qty'			=> $qty,
+			);
+
+
+			$exec = $this->ModelsExecuteMaster->ExecInsert($insert,'post_product');
+			if($exec){
+				$data['success'] = true;
+
+			}
+			else{
+				$InsertData = array(
+					'errorcode'		=> '500-01',
+					'errordesc'		=> 'Server Error',
+					'stacktrace'	=> 'ProductController line 163',
+				);
+				$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+				$data['message'] = '500-01';
+			}
+		}
+		echo json_encode($data);
+	}
+
+	function GetImage()
+	{
+		$data = array('success' => false ,'message'=>array(),'data' =>array());
+		$id = $this->input->post('id');
+
+		$exec = $this->ModelsExecuteMaster->FindData(array('postid'=>$id),'imagetable');
+		if($exec){
+			$data['success'] = true;
+			$data['data'] =$exec->result();
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'ProductController line 193',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '404-01';
+		}
+		echo json_encode($data);
+	}
+	function Findpost()
+	{
+		$data = array('success' => false ,'message'=>array(),'data' =>array());
+		$id = $this->input->post('id');
+
+		$exec = $this->ModelsExecuteMaster->FindData(array('postid'=>$id),'imagetable');
+		if($exec){
+			$data['success'] = true;
+			$data['data'] =$exec->result();
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'ProductController line 193',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '404-01';
+		}
+		echo json_encode($data);
+	}
+	function test()
+	{
+		$promomember = $this->input->post('promomember');
+
+		var_dump($promomember);
 	}
 }

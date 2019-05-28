@@ -16,6 +16,7 @@ class Id extends CI_Controller
 		$this->load->model('ModelsExecuteMaster');
 		$this->load->model('ModelsXPDC');
 		$this->load->model('ModelsStock');
+		$this->load->model('SiteModels');
 	}
 	function test()
 	{

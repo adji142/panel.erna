@@ -3,6 +3,10 @@
     require_once(APPPATH."views/part/sidebar.php");
     $query = $this->ModelsExecuteMaster->FindData(array('tglpasif'=>null),'masterstok');
     $query_categories = $this->ModelsExecuteMaster->FindData(array('tglpasif'=>null,'parent' => 0),'categories');
+
+    $this->ModelsExecuteMaster->ClearImage();
+
+    $gatData = $this->SiteModels->GetProduct();
 ?>
 <link href="<?php echo base_url()?>Assets/dropone/dropzone.min.css" rel="stylesheet">
 <script src="<?php echo base_url()?>Assets/dropone/dropzone.min.js"></script>
@@ -11,6 +15,9 @@
   .dropzone {
     margin-top: 20px;
     border: 2px dashed #0087F7;
+  },
+  .dz-hidden-input {
+    display: none;
   }
 </style>
 <!--main-container-part-->
@@ -35,6 +42,9 @@
         </div>
         <div class="widget-content">
           <div class="dropzone">
+            <!-- <div class="dz-image">
+              
+            </div> -->
             <div class="dz-message">
              <h3>Click or drag and drop your image hire (Max. 5 photos)</h3>
             </div>
@@ -85,9 +95,25 @@
               <div class="controls controls-row">
                 <label class="control-label m-wrap">Qty Ready</label>
                 <input type="text" placeholder="Qty Ready" id="qty" name="qty" required="" class="span6 m-wrap">
+                <input type="hidden" id="realstock" name="realstock">
                 <input type="text" placeholder="Harga Jual Perpcs" id="hpp" name="hpp" required="" class="span6 m-wrap">
               </div>
             </div>
+            <div class="control-group">
+              <div class="controls controls-row">
+                <input type="checkbox" id="promomember" name="promomember" value="1" checked=""> Join Promo Member ?
+              </div>
+            </div>
+            <!-- <div class="control-group">
+              <div class="controls controls-row">
+                <select id="promo" name="promo" class="span12 m-wrap">
+                  <option value="0" selected="">Pilih Promo</option>
+                  <?php
+                    
+                  ?>
+                </select>
+              </div>
+            </div> -->
             <div class="control-group">
               <div id="btncancel">
                 <button class="btn btn-primary" id="btn_Saveprod">Save</button>
@@ -107,18 +133,42 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>No Transaksi</th>
-                <th>Tanggal Transaksi</th>
-                <th>Sumber Stock</th>
-                <th>Di buat oleh</th>
+                <th>Nama Produk</th>
+                <th>Kategori</th>
+                <th>Qty Jual</th>
+                <th>Promo Member</th>
               </tr>
             </thead>
             <tbody>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+              <?php
+                if($gatData->num_rows() > 0){
+                  foreach ($gatData->result() as $key) {
+                    echo "<tr>";
+                    echo "<td width = '10%'>
+                        <button href='#' class='btn btn-mini btn-primary edit_data' id = '".$key->id."'>
+                          <i class='icon-edit' data-toggle='tooltip' title='Edit Data'></i>
+                        </button>
+                        <button href='#' class='btn btn-mini btn-danger set_passif' id = '".$key->id."'>
+                          <i class='icon-trash' data-toggle='tooltip' title='Set Passif'></i>
+                        </button>
+                        </td>";
+                    echo "<td>".$key->tittle."</td>";
+                    echo "<td>".$key->category."</td>";
+                    echo "<td>".number_format($key->qty)."</td>";
+                    echo "<td>".$key->memberpromo."</td>";
+                    echo "</tr>";
+                  }
+                }
+                else{
+                  echo "<tr>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "<td></td>";
+                  echo "</tr>";
+                }
+              ?>
             </tbody>
           </table>
         </div>
@@ -126,6 +176,28 @@
     </div>
   </div>
 </div>
+</div>
+
+<div class="modal fade" id="ModalSetPassif" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">  
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <p><h4>Set Passif Post</h4></p>
+        <br>
+        <form id="Frmsetpassif" enctype='application/json'>
+          <div class="control-group">
+            <label class="control-label">Tanggal Pasif</label>
+            <div class="controls">
+              <input type="hidden" class="span5" placeholder="Group Name" id="idGrppasif" name="idGrppasif"/>
+              <input type="date" data-date-format="dd-mm-yyyy" class="datepicker span5" id="passifdate" name="passifdate" required="">
+              <span class="help-block">Date with Formate of  (dd-mm-yy)</span> </div>
+          </div>
+          <button class="btn btn-primary" id="btn_setpassif">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- End models -->
 <?php
@@ -234,6 +306,7 @@
       form_mode = 'add';
       $("#cancel").remove();
     });
+
     $('#categori').on('change',function () {
       var idcat = $('#categori').val();
         $.ajax({
@@ -264,6 +337,162 @@
         });
 
     });
+
+    $('#stok').on('change',function () {
+      var idstok = $('#stok').val();
+        $.ajax({
+          type    : 'post',
+          url     : '<?=base_url()?>ProductController/GetStock',
+          data    : {idstok:idstok},
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              if(idstok == 0){
+                $('#qty').val(0);
+                $('#realstock').val(0);
+              }
+              else{
+                $.each(response.data,function (i,v) {
+                  $('#qty').focus();
+                  $('#qty').val(v.saldo);
+                  $('#realstock').val(v.saldo);
+                });
+              }
+            }
+            else{
+              console.log("something wrong");
+            }
+          }
+        });
+
+    });
+
+    $('#promomember').on('change',function () {
+      if ($('#promomember').prop("checked") != true) {
+        // $('#promo').prop('disabled', true);
+        // fill promo combo box
+      }
+    });
+    // Begin form action
+    $('#FrmAddProduct').submit(function(e) {
+      $('#btn_Saveprod').text('Tunggu Sebentar.....');
+      $('#btn_Saveprod').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      if(form_mode == 'add'){
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>ProductController/AddProduct',
+          data    : me.serialize(),
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              if(response.message == 'E-01'){
+                Swal.fire({
+                  type: 'error',
+                  title: 'Woops...',
+                  text: 'Stock Kurang',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                }).then((result)=>{
+                  $('#btn_Saveprod').text('Save');
+                  $('#btn_Saveprod').attr('disabled',false);
+                  $('#qty').focus();
+                });
+              }
+              else{
+                Swal.fire({
+                  type: 'error',
+                  title: 'Woops...',
+                  text: 'Error While Saving, Please contact your system administrator',
+                  // footer: '<a href>Why do I have this issue?</a>'
+                }).then((result)=>{
+                  location.reload();
+                });
+              }
+            }
+          }
+        });
+      }
+    });
+
+    $('.edit_data').click(function () {
+      // console.log($('.dz-image').val());
+      var id = $(this).attr("id");
+      $.ajax({
+        type    :'post',
+        url     : '<?=base_url()?>ProductController/GetImage',
+        data    : {id,id},
+        dataType: 'json',
+        success:function (response) {
+          if(response.success == true){
+            $.each(response.data,function (k,v) {
+              var html = '';
+              var i;
+              for (i = 0; i < response.data.length; i++) {
+                html += '<img src = "'+response.data[i].image+'">'
+              }
+              $('.dz-image').html(html);
+            });
+          }
+          else{
+            if(response.message = '404-01'){
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Tidak Ditemukan',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+          }
+        }
+      });
+    });
+
+    $('.set_passif').click(function () {
+    var id = $(this).attr("id");
+    // alert(id);
+    $.ajax({
+        type    :'post',
+        url     : '<?=base_url()?>ProductController/Findpost',
+        data    : {id,id},
+        dataType: 'json',
+        success:function (response) {
+          if(response.success == true){
+            $.each(response.data,function (k,v) {
+              $('#idGrppasif').val(v.id);
+            });
+            $('#GrActDate').attr('readonly',true);
+            $('#ModalSetPassif').modal('show');
+          }
+          else{
+            if(response.message = '404-01'){
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data XPDC Tidak Valid',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+          }
+        }
+      });
+    });
+
   });
   function resizeWithCanvas(img) {
       var MAX_WIDTH = 1200;

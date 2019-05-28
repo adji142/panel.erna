@@ -49,4 +49,23 @@ class ModelsExecuteMaster extends CI_Model
 	{
 		return $this->db->delete($table,$where);
 	}
+	function GetSaldoStock($kodestock){
+		$data = '
+				SELECT a.kodestok,SUM(COALESCE(msd.qty,0)) - SUM(COALESCE(pp.qty,0)) - SUM(COALESCE(pj.qty,0)) saldo FROM masterstok a
+				LEFT JOIN mutasistokdetail msd on a.id = msd.stokid
+				LEFT JOIN post_product pp on a.id = pp.stockid
+				LEFT JOIN penjualan pj on pp.id = pj.productid AND pj.statustransaksi = 1
+				WHERE msd.canceleddate is null AND a.id = '.$kodestock.'
+				GROUP BY a.kodestok
+			';
+		return $this->db->query($data);
+	}
+	function ClearImage()
+	{
+		$data = '
+				DELETE FROM imagetable
+				where used = 0
+			';
+		return $this->db->query($data);
+	}
 }
