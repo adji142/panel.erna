@@ -25,6 +25,9 @@ class ProductController extends CI_Controller
 
 		$file_image = $this->input->post('file_image');
 		$image_token = $this->input->post('image_token');
+		$large = $this->input->post('large');
+		$med = $this->input->post('med');
+		$tumb = $this->input->post('tumb');
 
 		$idpost;
 
@@ -40,6 +43,9 @@ class ProductController extends CI_Controller
 			'image'		=> $file_image,
 			'imagetoken'=> $image_token,
 			'used'		=> 0,
+			'name_l'	=> $large,
+			'name_m'	=> $med,
+			'name_t'	=> $tumb,
 		);
 
 		$exec = $this->ModelsExecuteMaster->ExecInsert($datainsert,'imagetable');

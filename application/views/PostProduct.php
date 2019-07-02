@@ -224,7 +224,10 @@
     reader = new FileReader();
     reader.onload = function(event) {
       base64 = event.target.result;
-      PostImage(base64,file.token);
+      var large = resizeWithCanvas(event.target.result,900,1024);
+      var med = resizeWithCanvas(event.target.result,250,300);
+      var tumb = resizeWithCanvas(event.target.result,45,55);
+      PostImage(base64,file.token,large,med,tumb);
       // $('#dropzone--dropzoneThumbnail').val(base64);
       _this.processQueue();
     };
@@ -256,11 +259,16 @@
       }
     });
   })
-  function PostImage(file_image,image_token) {
+  function PostImage(file_image,image_token,large,med,tumb) {
+    // var large = resizeWithCanvas(file_image,900,1024);
+    // var med = resizeWithCanvas(file_image,250,300);
+    // var tumb = resizeWithCanvas(file_image,45,55);
+    // console.log(file_image);
+    // console.log(large);
     $.ajax({
       type    : 'post',
       url     : '<?=base_url()?>ProductController/PostImage',
-      data    : {file_image:file_image,image_token:image_token},
+      data    : {file_image:file_image,image_token:image_token,large:large,med:med,tumb:tumb},
       dataType: 'json',
       success:function (response) {
         if(response.success == true){
@@ -494,39 +502,42 @@
     });
 
   });
-  function resizeWithCanvas(img) {
-      var MAX_WIDTH = 1200;
-      var MAX_HEIGHT = 1200;
-      var OUTPUT_QUALITY = .75;
+  function resizeWithCanvas(img,width,height) {
+      var img = new Image();
+      img.src = img;
+      var canvas = document.createElement('canvas');
+      var MAX_WIDTH = width;
+      var MAX_HEIGHT = height;
+      // var width = img.width;
+      // var height = img.height;
 
-      var canvas = document.createElement("canvas");
-      var ctx = canvas.getContext("2d");
-      var width = img.width;
-      var height = img.height;
+      // if (width > height) {
+      //   if (width > MAX_WIDTH) {
+      //     height *= MAX_WIDTH / width;
+      //     width = MAX_WIDTH;
+      //   }
+      //   else{
+      //     // height = MAX_HEIGHT;
+      //     // width = MAX_WIDTH;
+      //   }
+      // } else {
+      //   if (height > MAX_HEIGHT) {
+      //     width *= MAX_HEIGHT / height;
+      //     height = MAX_HEIGHT;
+      //   }
+      //   else{
+      //     // width = MAX_WIDTH;
+      //     // height = MAX_HEIGHT;
+      //   }
+      // }
 
-      ctx.drawImage(img, 0, 0);
+      canvas.width = MAX_WIDTH;
+      canvas.height = MAX_HEIGHT;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, MAX_WIDTH, MAX_HEIGHT);
+      // console.log(canvas.toDataURL());
+      return canvas.toDataURL();
 
-      if (width > height) {
-          if (width > MAX_WIDTH) {
-              height *= MAX_WIDTH / width;
-              width = MAX_WIDTH;
-          }
-      } else {
-          if (height > MAX_HEIGHT) {
-              width *= MAX_HEIGHT / height;
-              height = MAX_HEIGHT;
-          }
-      }
-      canvas.width = width;
-      canvas.height = height;
-      var ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0, width, height);
-
-      if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-          return canvas.toDataURL("image/jpeg", OUTPUT_QUALITY);
-      } else {
-          return canvas.toDataURL("image/jpeg");
-      }
   }
 </script>
 <!-- <div class="row-fluid">
