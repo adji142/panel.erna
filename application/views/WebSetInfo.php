@@ -28,6 +28,7 @@
               <li><a data-toggle="tab" href="#tab4">SHIPPING POLICY</a></li>
               <li><a data-toggle="tab" href="#tab5">REFUND POLICY</a></li>
               <li><a data-toggle="tab" href="#tab6">RETURNS & EXCHANGE POLICY</a></li>
+              <li><a data-toggle="tab" href="#tab7">AKUN REKENING</a></li>
             </ul>
         </div>
         <div class="widget-content tab-content">
@@ -55,7 +56,7 @@
                   <div id="btncancel">
                     <button class="btn btn-primary" id="btn_SaveCat">Save</button>
                     <button class="btn btn-default" id ="cancel" type="reset">Cancel</button>
-                  </div>  
+                  </div>
                 </form>
               </div>
               <div class="span6">
@@ -150,6 +151,81 @@
             </form>
             <p></p>
           </div>
+          <div id="tab7" class="tab-pane">
+            <h4>AKUN REKENING</h4>
+            <div class="row-fluid">
+              <div class="span6">
+                <h4><font color="red"><center><div class="warning_2"></div></center></font></h4>
+                <form id="frmrekening" enctype='application/json'>
+                  <input type="hidden" id="idrek" name="idrek">
+                  <div class="control-group">
+                    <label class="control-label">Kode Bank</label>
+                    <div class="controls">
+                      <div class="input-append">
+                        <input type="text" placeholder="Kode Bank" id="kdbank" name="kdbank" required="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">Nama Bank</label>
+                    <div class="controls">
+                      <div class="input-append">
+                        <input type="text" placeholder="Nama Bank" id="nmbank" name="nmbank" required="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">Nomer Rekening</label>
+                    <div class="controls">
+                      <div class="input-append">
+                        <input type="text" placeholder="Nomer Rekenng" id="norek" name="norek" required="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">Atas Nama</label>
+                    <div class="controls">
+                      <div class="input-append">
+                        <input type="text" placeholder="Atas Nama" id="atasnama" name="atasnama" required="">
+                      </div>
+                    </div>
+                  </div>
+                  <div id="btncancelrek">
+                    <button class="btn btn-primary" id="btn_Saverbank">Save</button>
+                    <button class="btn btn-default" id ="cancel_rek" type="reset">Cancel</button>
+                  </div>
+                </form>
+                <p></p>
+              </div>
+              <div class="span6">
+                <table class="table table-bordered" id="rek">
+                  <thead>
+                      <tr>
+                        <th>ID Bank</th>
+                        <th>Kode Bank</th>
+                        <th>No. Rekening</th>
+                        <th>Atas Nama</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                        
+                    <?php
+                        $databank = $this->ModelsExecuteMaster->GetData('masterrekening');
+                        foreach($databank->result() as $rek){
+                            echo "<tr class='gradeX btn-default'>";
+                            echo "<td id = 'pidrek'>".$rek->id."</td>";
+                            echo "<td>".$rek->kdbank."</td>";
+                            echo "<td>".$rek->norek."</td>";
+                            echo "<td>".$rek->atasnama."</td>";
+                            echo "</tr>";
+                        }
+                        
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </div>
@@ -175,7 +251,9 @@
     $(document).ready(function () {
       form_mode = 'add';
       $("#cancel").remove();
+      $("#cancel_rek").remove();
       $("#cat tr").css('cursor', 'pointer');
+      $("#rek tr").css('cursor', 'pointer');
       $(".warning").text('Tambah FAQ');
       $('#passifdate').attr('readonly',true);
       LoadData();
@@ -188,7 +266,7 @@
     $('.textarea_editor_refund').wysihtml5();
     $('.textarea_editor_retur').wysihtml5();
     
-    $('#cat ').on('click','tr',function () {
+    $('#cat').on('click','tr',function () {
       // var table = $('#cat').DataTable();
       form_mode = 'edit';
       $(".warning").text('Edit FAQ');
@@ -212,6 +290,49 @@
               // $('#answ').val(v.answer);
               $('#answ').data('wysihtml5').editor.setValue(v.answer);
               $('#idfaq').val(v.id);
+            });
+          }
+          else{
+            if(response.message = '404-01'){
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Tidak Ditemukan',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+          }
+        }
+      });
+    });
+
+    $('#rek').on('click','tr',function () {
+      // var table = $('#cat').DataTable();
+      form_mode = 'edit';
+      $(".warning_2").text('Edit Rekening');
+      $("#btn_Saverbank").text('Update Rekening');
+      $("#cancel_rek").remove();
+
+      var r= $('<button class="btn btn-default" id ="cancel_rek" type="reset" onclick="Reset()">Cancel</button>');
+      $("#btncancelrek").append(r);
+
+      var id = $(this).find("#pidrek").text();
+      $.ajax({
+        type    :'post',
+        url     : '<?=base_url()?>SiteSettingController/Viewrek',
+        data    : {id:id},
+        dataType: 'json',
+        success:function (response) {
+          if(response.success == true){
+            $.each(response.data,function (k,v) {
+              $('#kdbank').val(v.kdbank);
+              // $('#answ').val(v.answer);
+              $('#nmbank').val(v.namabank);
+              $('#atasnama').val(v.atasnama);
+              $('#norek').val(v.norek);
+              $('#idrek').val(v.id);
             });
           }
           else{
@@ -663,15 +784,95 @@
         });
       }
     });
+// kene
+    $('#frmrekening').submit(function (e) {
+      $('#btn_Saverbank').text('Tunggu Sebentar.....');
+      $('#btn_Saverbank').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+      // var info = $('#rtr').val();
+      // var field = 'return';
+      var id = $('#idrek').val();
+      if( id == ''){
+        // Add
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/rekSave',
+          data    : me.serialize(),
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saverbank').text('Save');
+              $('#btn_Saverbank').attr('disabled',false);
+            }
+          }
+        });
+      }
+      else{
+        $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>SiteSettingController/rekEdit',
+          data    : me.serialize(),
+          dataType: 'json',
+          success:function (response) {
+            if(response.success == true){
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: 'Data Gagal disimpan! Silahkan hubungi administrator',
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_Saverbank').text('Save');
+              $('#btn_Saverbank').attr('disabled',false);
+            }
+          }
+        });
+      }
+    });
 
   });
   function Reset() {
     form_mode = 'add';
     $(".warning").text('Tambah FAQ');
     $("#cancel").remove();
+    $("#cancel_rek").remove();
+    $("#btn_Saverbank").text('Save');
     $("#btn_SaveCat").text('Save');
     $('#ask').val('');
     $('#answ').val('');
+
+    // reset 2
+    $('#kdbank').val('');
+    $('#nmbank').val('');
+    $('#norek').val('');
+    $('#atasnama').val('');
   }
   function LoadData() {
     var id = 1;

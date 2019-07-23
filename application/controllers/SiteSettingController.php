@@ -500,4 +500,106 @@ class SiteSettingController extends CI_Controller
 		echo json_encode($data);
 	}
 
+	function rekSave()
+	{
+		$data = array('success' => false ,'message'=>array());
+
+		$idrek = $this->input->post('idrek');
+		$kdbank = $this->input->post('kdbank');
+		$nmbank = $this->input->post('nmbank');
+		$atasnama = $this->input->post('atasnama');
+		$norek = $this->input->post('norek');
+		
+		// $find_catname = $this->ModelsExecuteMaster->FindData(array('id'=>$parent),'categories');
+
+		$data = array(
+			'kdbank'	=> $kdbank,
+			'namabank'	=> $nmbank,
+			'norek'		=> $norek,
+			'atasnama'	=> $atasnama,
+		);
+		$exec = $this->ModelsExecuteMaster->ExecInsert($data,'masterrekening');
+
+		if($exec){
+			$data['success'] = true;
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'SiteSettingController line 530',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '500-01';
+		}
+		echo json_encode($data);
+	}
+
+	function rekEdit()
+	{
+		$data = array('success' => false ,'message'=>array());
+
+		$idrek = $this->input->post('idrek');
+		$kdbank = $this->input->post('kdbank');
+		$nmbank = $this->input->post('nmbank');
+		$atasnama = $this->input->post('atasnama');
+		$norek = $this->input->post('norek');
+		// $find_catname = $this->ModelsExecuteMaster->FindData(array('id'=>$parent),'categories');
+
+		$data = array(
+			'kdbank'	=> $kdbank,
+			'namabank'	=> $nmbank,
+			'norek'		=> $norek,
+			'atasnama'	=> $atasnama,
+		);
+		$exec = $this->ModelsExecuteMaster->ExecUpdate($data,array('id'=>$idrek),'masterrekening');
+
+		if($exec){
+			$data['success'] = true;
+		}
+		else{
+			$InsertData = array(
+				'errorcode'		=> '500-01',
+				'errordesc'		=> 'Server Error',
+				'stacktrace'	=> 'SiteSettingController line 564',
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+			$data['message'] = '500-01';
+		}
+		echo json_encode($data);
+	}
+
+	function Viewrek()
+	{
+		$data = array('success' => false ,'message'=>array(),'data'=>array());
+		$id = $this->input->post('id');	
+		$where = array(
+				'id' =>$id
+			);
+		try {
+			$exec = $this->ModelsExecuteMaster->FindData($where,'masterrekening');
+			if($exec->num_rows()>0){
+				$data['success'] = true;
+				$data['data'] = $exec->result();
+			}
+			else{
+
+				$InsertData = array(
+					'errorcode'		=> '500-01',
+					'errordesc'		=> 'Server Error',
+					'stacktrace'	=> 'SiteSettingController line 590',
+				);
+				$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+				$data['message'] = '404-01';
+			}
+		} catch (Exception $e) {
+			$InsertData = array(
+				'errorcode'		=> '500',
+				'errordesc'		=> 'Exception Server Error',
+				'stacktrace'	=> $e->getMessage(),
+			);
+			$exec = $this->ModelsExecuteMaster->ExecInsert($InsertData,'errorlog');
+		}
+		echo json_encode($data);
+	}
 }
