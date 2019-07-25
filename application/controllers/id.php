@@ -17,6 +17,7 @@ class Id extends CI_Controller
 		$this->load->model('ModelsXPDC');
 		$this->load->model('ModelsStock');
 		$this->load->model('SiteModels');
+		$this->load->model('ModelsOrder');
 	}
 	function test()
 	{
@@ -71,5 +72,9 @@ class Id extends CI_Controller
 	function PostItem()
 	{
 		$this->load->view('PostProduct');
+	}
+	function Pesan()
+	{
+		$this->load->view('Pemesanan');
 	}
 }

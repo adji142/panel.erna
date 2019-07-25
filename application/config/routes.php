@@ -61,6 +61,7 @@ $route['groupmember'] = 'Id/grupmember';
 $route['xpdc'] = 'Id/MasterXPDC';
 $route['masterStock'] = 'Id/MasterStock';
 $route['mutasistok'] = 'Id/MutasiStock';
+$route['order'] = 'Id/Pesan';
 
 // Site setting
 $route['banner'] = 'Id/siteBanner';
