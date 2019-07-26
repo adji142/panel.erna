@@ -6,7 +6,9 @@
   $query = $this->ModelsOrder->GetOrder();
 ?>
 <style type="text/css">
-
+  th, td {
+      white-space: nowrap;
+  }
 </style>
 <!--main-container-part-->
 <div id="content">
@@ -22,13 +24,14 @@
 <div class="container-fluid">
   <div class="row-fluid">
     <div class="span12">
+      <br><br>
     <div class="widget-box">
         <div class="widget-title">
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#tab1">Pemesanan</a></li>
               <li><a data-toggle="tab" href="#tab2">Pembayaran</a></li>
-              <li><a data-toggle="tab" href="#tab2">Pengiriman</a></li>
-              <li><a data-toggle="tab" href="#tab3">Pesanan Selesai</a></li>
+              <li><a data-toggle="tab" href="#tab3">Pengiriman</a></li>
+              <li><a data-toggle="tab" href="#tab4">Pesanan Selesai</a></li>
             </ul>
         </div>
         <div class="widget-content tab-content">
@@ -44,6 +47,7 @@
                         <th>Total Qty</th>
                         <th>Total Harga</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -81,6 +85,7 @@
                                   <td>".number_format($SUMARY->Qty)."</td>
                                   <td>".number_format($SUMARY->TOTAL)."</td>
                                   <td>".$Status."</td>
+                                  <td><button class = 'btn btn-mini btn-info cetak' id ='".$head->id."'>Cetak</button></td>
                                 </tr>
                               ";
                         }
@@ -134,6 +139,67 @@
               </div>
             </div>
           </div>
+          <div id="tab3" class="tab-pane">
+            <h4>Pemesanan</h4>
+            <div class="row-fluid">
+              <div class="span12">
+                <table class="table table-bordered data-table" id="tablex">
+                  <thead>
+                      <tr>
+                        <th width="20%">No. Order</th>
+                        <th>Tanggal Order</th>
+                        <th>No Pengiriman</th>
+                        <th>Ekspedisi</th>
+                        <th>Service</th>
+                        <th>Resi</th>
+                        <th>Aksi</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                        
+                    <?php
+                        // $header = $this->ModelsExecuteMaster->FindData(array('statusorder'),'deliveryorder');
+                        $query = "
+                          SELECT 
+                            b.nomerorder,
+                            b.tglorder,
+                            c.nopengiriman,
+                            c.tglpengiriman,
+                            c.nomerresi,
+                            b.xpdc,
+                            b.service,
+                            b.id doid
+                          FROM deliveryorderdetail a
+                          LEFT JOIN deliveryorder b on a.headerid = b.id
+                          LEFT JOIN pengiriman c on c.doid = b.id
+                          WHERE b.statusorder >=3
+                        ";
+                        $getquery = $this->db->query($query);
+                        foreach ($getquery->result() as $rs) {
+                          $btn = '';
+                          if ($rs->nomerresi == '') {
+                            $btn = "<button class = 'btn btn-mini btn-danger _isiresi' id ='".$rs->doid."'>Isi Resi</button>";
+                          }
+                          echo "<tr>
+                                  <td>".$rs->nomerorder."</td>
+                                  <td>".date_format(date_create($rs->tglorder),'d-m-Y')."</td>
+                                  <td>".$rs->nopengiriman."</td>
+                                  <td>".$rs->xpdc."</td>
+                                  <td>".$rs->service."</td>
+                                  <td>".$rs->nomerresi."</td>
+                                  <td>
+                                    ".$btn."
+                                  </td>
+                                </tr>
+                              ";
+                        }
+                        
+                    ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
   </div>
@@ -162,6 +228,39 @@
         <center>
           <img src="https://i.stack.imgur.com/FhHRx.gif">
         </center>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="resiinput" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" style="width: auto; height: auto; ">
+    <div class="modal-content">  
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <center><p><h4>Tambahkan Resi</h4></p></center>
+        <form id="AddResi" enctype='application/json'>
+          <div class="control-group">
+            <label class="control-label">Pengirim :</label>
+            <div class="controls">
+              <input type="hidden" class="span5" id="doid" name="doid"/>
+              <input type="text" class="span5" placeholder="Pengirim" id="sendder" name="sendder" required="" />
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Outlet Expedisi :</label>
+            <div class="controls">
+              <input type="text" class="span5" placeholder="Outlet Expedisi" id="Outlet" name="Outlet" value="" />
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label">Nomer Resi :</label>
+            <div class="controls">
+              <input type="text" class="span5" placeholder="Nomer Resi" id="resi" name="resi" required="" />
+            </div>
+          </div>
+          <button class="btn btn-primary" id="btn_SaveResi">Save</button>
+        </form>
       </div>
     </div>
   </div>
@@ -269,6 +368,72 @@
       })
     });
 
+    $('._isiresi').click(function () {
+      var id = $(this).attr("id");
+      $('#doid').val(id);
+      $('#resiinput').modal('show');
+    });
+
+    $('#AddResi').submit(function (e) {
+      $('#btn_SaveResi').text('Tunggu Sebentar.....');
+      $('#btn_SaveResi').attr('disabled',true);
+
+      e.preventDefault();
+      var me = $(this);
+
+      $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>OrderController/Kirim',
+          data    : me.serialize(),
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              $('#resiinput').modal('toggle');
+              Swal.fire({
+                type: 'success',
+                title: 'Horay..',
+                text: 'Data Berhasil disimpan!',
+                // footer: '<a href>Why do I have this issue?</a>'
+              }).then((result)=>{
+                location.reload();
+              });
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: response.message,
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+            }
+          }
+        });
+      });
+    $('.cetak').click(function () {
+      var id = $(this).attr("id");
+      
+      $.ajax({
+          type    :'post',
+          url     : '<?=base_url()?>OrderController/CekInvoice',
+          data    : {id:id},
+          dataType: 'json',
+          success : function (response) {
+            if(response.success == true){
+              window.open('<?php echo base_url(); ?>Invoice.php?id='+id,'_blank');
+            }
+            else{
+              Swal.fire({
+                type: 'error',
+                title: 'Woops...',
+                text: response.message,
+                // footer: '<a href>Why do I have this issue?</a>'
+              });
+              $('#btn_SaveResi').text('Save');
+              $('#btn_SaveResi').attr('disabled',false);
+            }
+          }
+        });
+    });
   });
 </script>
 <!-- <div class="row-fluid">

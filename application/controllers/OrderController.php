@@ -71,4 +71,61 @@ class OrderController extends CI_Controller
 		}
 		echo json_encode($data);
 	}
+	function CekInvoice()
+	{
+		$data = array('success' => false ,'message'=>array());
+		$id = $this->input->post('id');
+
+		$getdata = $exec = $this->ModelsExecuteMaster->FindData(array('statusorder'=>2,'id'=>$id),'deliveryorder');
+
+		if ($getdata->num_rows() == 0) {
+			$data['message'] = 'Pembayaran Belum di Konfirmasi';
+		}
+		else{
+			$update = $this->ModelsExecuteMaster->ExecUpdate(array('statusorder'=>3),array('id'=>$id),'deliveryorder');
+			if ($update) {
+				$data['success'] = true;
+			}
+			else{
+				$data['message'] = 'Gagal Update Pemesanan';
+			}
+		}
+		echo json_encode($data);
+	}
+	function Kirim()
+	{
+		$data = array('success' => false ,'message'=>array());
+
+		$sendder = $this->input->post('sendder');
+		$Outlet = $this->input->post('Outlet');
+		$resi = $this->input->post('resi');
+		$doid = $this->input->post('doid');
+		$nomertrx = '4'.date('Y')."".date('m')."".date('d')."".rand();
+		$tgltrx = date("Y-m-d H:i:s");
+
+		// insert pengiriman
+		$datainsert = array(
+			'nopengiriman'		=> $nomertrx,
+			'tglpengiriman'		=> $tgltrx,
+			'doid'				=> $doid,
+			'pengirim'			=> $sendder,
+			'outletxpdc'		=> $Outlet,
+			'nomerresi'			=> $resi,
+		);
+
+		$insert = $this->ModelsExecuteMaster->ExecInsert($datainsert,'pengiriman');
+		if ($insert) {
+			$update = $this->ModelsExecuteMaster->ExecUpdate(array('statusorder'=>4),array('id'=>$doid),'deliveryorder');
+			if ($update) {
+				$data['success'] = true;
+			}
+			else{
+				$data['message'] = 'Gagal Update Status, Hubungi Administrator';
+			}
+		}
+		else{
+			$data['message'] = 'Gagal Proses Pengiriman, Hubungi Administrator';
+		}
+		echo json_encode($data);
+	}
 }

@@ -16,7 +16,7 @@ class ModelsOrder extends CI_Model
 		$query = "
 			SELECT 
 				a.*,b.nomerorder,c.namabank,
-				CASE WHEN a.confirmed = 0 then 'Belum di konfirmasi' ELSE 'Terkonfirmasi' END StatusBayar
+				CASE WHEN a.confirmed = 0 then 'Belum di konfirmasi' ELSE 'Terkonfirmasi' END StatusBayar,b.id doid
 			FROM pembayaran a
 			LEFT JOIN deliveryorder b on a.doid = b.id
 			LEFT JOIN masterrekening c on a.rekeningid = c.id
