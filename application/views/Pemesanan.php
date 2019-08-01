@@ -365,7 +365,7 @@
             }
           });
         }
-      })
+      });
     });
 
     $('._isiresi').click(function () {

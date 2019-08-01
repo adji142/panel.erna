@@ -6,7 +6,12 @@
       $menu = '';
       foreach ($SidebarDynamic->result() as $dt) {
         if($dt->multilevel == 0){
-          echo '<li><a href="'.base_url($dt->link).'"><i class="icon '.$dt->ico.'"></i> <span>'.$dt->permissionname.'</span></a> </li>';
+          if (substr($dt->link, 0,4) == 'http') {
+            echo '<li><a href="'.$dt->link.'" target = "_blank"><i class="icon '.$dt->ico.'"></i> <span>'.$dt->permissionname.'</span></a> </li>';
+          }
+          else{
+            echo '<li><a href="'.base_url($dt->link).'"><i class="icon '.$dt->ico.'"></i> <span>'.$dt->permissionname.'</span></a> </li>';
+          }
         }
         else{
           echo '<li class="submenu"> ';
