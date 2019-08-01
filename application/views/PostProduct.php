@@ -215,6 +215,7 @@
     paramName:"userfile",
     dictInvalidFileType:"Type file ini tidak dizinkan",
     addRemoveLinks:true,
+    
   });
 
   foto_upload.on("addedfile",function (file) {
@@ -224,10 +225,7 @@
     reader = new FileReader();
     reader.onload = function(event) {
       base64 = event.target.result;
-      var large = resizeWithCanvas(event.target.result,900,1024);
-      var med = resizeWithCanvas(event.target.result,250,300);
-      var tumb = resizeWithCanvas(event.target.result,45,55);
-      PostImage(base64,file.token,large,med,tumb);
+      PostImage(base64,file.token,'','','');
       // $('#dropzone--dropzoneThumbnail').val(base64);
       _this.processQueue();
     };
@@ -236,9 +234,13 @@
   });
   foto_upload.on("sending",function(a,b,c){
     // alert('2');
-    var value = "; " + document.cookie;
-    var parts = value.split("; csrf_cookie_token=");
+    var value = '';
+    var parts = '';
+    value = "; " + document.cookie;
+    parts = value.split("; csrf_cookie_token=");
+    // console.log(value);
     if(parts.length == 2){
+      console.log('in');
       c.append("csrf_token",parts.pop().split(";").shift());
     }
   });
@@ -260,11 +262,6 @@
     });
   })
   function PostImage(file_image,image_token,large,med,tumb) {
-    // var large = resizeWithCanvas(file_image,900,1024);
-    // var med = resizeWithCanvas(file_image,250,300);
-    // var tumb = resizeWithCanvas(file_image,45,55);
-    // console.log(file_image);
-    // console.log(large);
     $.ajax({
       type    : 'post',
       url     : '<?=base_url()?>ProductController/PostImage',
